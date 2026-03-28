@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clicker</title>
+    <link rel="stylesheet" href="node_modules/7.css/dist/7.css">
+</head>
+
+<body style="overflow-x: hidden; overflow-y: hidden;">
+    <div class="background">
+        <div class="window glass active" style="max-width: 900%; ">
+            <div class="title-bar">
+                <div class="title-bar-text"><img src="coffee_cup.webp" alt=""
+                        style="height: 12px; pointer-events: none;">Home
+                    Page Yooo Wleocm</div>
+                <div class="title-bar-controls">
+                    <button aria-label="Help" onclick="showhelp()"></button>
+                </div>
+            </div>
+            <div class="window-body has-space">
+                <nav>
+                    <ul role="menubar" class="can-hover">
+                        <li role="menuitem" tabindex="0" aria-haspopup="true">
+                            <!-- /index.html -->
+                            Home
+                            <ul role="menu">
+                                <li role="menuitem"><a href="/index.html">There's like nothing, lol</a></li>
+                            </ul>
+                        </li>
+                        <li role="menuitem" tabindex="0" aria-haspopup="true">
+                            Projects
+                            <ul role="menu">
+                                <li role="menuitem">hiaihahahhaha</li>
+                            </ul>
+                        </li>
+                        <li role="menuitem" tabindex="0" aria-haspopup="true">
+                            About
+                            <ul role="menu">
+                                <li role="menuitem" tabindex="0" aria-haspopup="true">
+                                    Zoom
+                                    <ul role="menu">
+                                        <li role="menuitem"><button>Zoom In</button></li>
+                                        <li role="menuitem"><button>Zoom Out</button></li>
+                                    </ul>
+                                </li>
+                                <li role="menuitem"><a href="#menubar">Status Bar</a></li>
+                            </ul>
+                        </li>
+                        <li role="menuitem" tabindex="0" aria-haspopup="true">
+                            Help
+                            <ul role="menu">
+                                <li role="menuitem"><a href="#menubar">View Help</a></li>
+                                <li role="menuitem"><a href="#menubar">About</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+                <section>
+                    <div class="flexo" style="display: flex; gap: 15px;">
+                        <div>
+                            <div style="display: flex;">
+                                <h1>Frutiger Aero Count:</h1>
+                                <h1 id="count">0</h1>
+                            </div>
+                            <p id="Stats">Power: 0 <br> Boost: 1</p>
+                        </div>
+                        <button id="ClickButton">Click</button>
+                    </div>
+                    <dialog id="helpel" style="background: none; border-width: 0px;">
+                        <div class="window glass active" style="max-width: 300px">
+                            <div class="title-bar">
+                                <div class="title-bar-text">Help Show</div>
+                                <div class="title-bar-controls">
+                                    <button aria-label="Close" onclick="closemod()"></button>
+                                </div>
+                            </div>
+                            <div class="window-body has-space">
+                                <p>So helpful!</p>
+                                <p>Thanks for seeking for help! You can close this window using this reeeed buttony</p>
+                                <p>ОЧЕНЬ СЕКРЕТНАЯ РАЗРАБОТКА ПЕНТАГОНА</p>
+                                <button id="open-hall-btn" onclick="closemod()">залесть</button>
+                            </div>
+                        </div>
+                    </dialog>
+                </section>
+                <hr> <!--For placeholding-->
+                <section>
+                    <section class="tabs" style="margin-top: 20px;">
+                        <menu role="tablist" aria-label="Shop Tabs">
+                            <button role="tab" aria-controls="pane-shop" aria-selected="true">Магазин</button>
+                            <button role="tab" aria-controls="pane-collection" aria-selected="false">Коллекция</button>
+                        </menu>
+                        <article role="tabpanel" id="pane-shop" class="has-scrollbar"
+                            style=" min-height: 450px; padding: 10px; ">
+
+                            <h1 style="margin: 0 0 15px 0; width: 100%;">Shop</h1>
+                            <div class="shop has-scrollbar" id="shop-cont" style="display: grid; 
+                                    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+                                    gap: 15px; 
+                                    height: 500px; 
+                                    overflow-y: auto; 
+                                    width: 100%;
+                                    box-sizing: border-box;">
+                            </div>
+                        </article>
+
+                        <article role="tabpanel" id="pane-collection" hidden="" class="has-scrollbar"
+                            style="min-height: 450px;  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 10px;">
+                            <h1 style="margin: 0 0 15px 0; width: 100%;">Твои безделушки, клоун</h1>
+
+                            <div class="has-scrollbar" id="coll-cont" style="display: grid; 
+                                    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+                                    gap: 15px; 
+                                    height: 400px; 
+                                    overflow-y: auto; 
+                                    width: 100%;
+                                    box-sizing: border-box;">
+                            </div>
+                        </article>
+                    </section>
+
+                </section>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="background">
+        <div id="playerwind" class="window glass active"
+            style="display: none; transition: all 1.2s cubic-bezier(0.075, 0.82, 0.165, 1); max-width: 100%; position: fixed; bottom: 0px; right: 20px; z-index: 9999;">
+            <div class="title-bar" style="background-attachment: local;">
+                <div class="title-bar-text">Music player</div>
+                <div class="title-bar-controls">
+                    <button aria-label="Minimize" id="Minimize_player"></button>
+                </div>
+            </div>
+            <div class="window-body">
+                <div id="player-widget">
+                    <iframe title="music_player_you_bought" width="100%" height="450" scrolling="no" frameborder="no"
+                        allow="autoplay"
+                        src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/soundcloud%253Aplaylists%253A1788413202&color=%2370b3b6&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hall-of-achvs" id="hall-of-achvs"
+            style="background: url('https://images.hdqwalls.com/download/windows-vista-aurora-greeny-in-1336x768.jpg') center/cover; display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 99999; align-items: center; justify-content: center; animation: fadeIn 0.5s ease; flex-direction: column;">
+
+            <button id="close-ach-btn" class="shopperbutton" style="
+                position: absolute; 
+                top: 20px; 
+                right: 20px; 
+                padding: 5px 15px; 
+                font-size: 12px; 
+                min-width: auto; 
+                z-index: 100000;
+                filter: hue-rotate(167deg);
+                opacity: 0.1;
+            ">
+                X
+            </button>
+        <h1 style="color: white; text-shadow: 0px 0px 12px #ffffff; margin-bottom: 20px; font-weight: 1; font-family: 'Segoe UI Light', sans-serif; font-size: 38px;">О да, твои ачивочки</h1>
+            <div id="achvs-grid" class="has-scrollbar" style="
+        display: flex;
+        flex-direction: row; 
+        width: 95%; 
+        overflow-x: auto; /* Горизонтальный скролл */
+        overflow-y: hidden; /* Выключаем вертикальный */
+        padding: 40px 20px;
+        gap: 30px; /* Расстояние между ачивками */
+        scroll-behavior: smooth; /* Плавная прокрутка */
+        align-items: center;
+        height: 174px;
+        background: rgba(255, 255, 255, 0.5);
+        background: linear-gradient(0deg, rgba(255, 255, 255, 0.1) 24%, rgba(255, 255, 255, 0.4) 53%, rgba(255, 255, 255, 0.01) 55%);">
+
+                ЗДЕСЬ КАРТНОНИКИ КАРТЧОКИ 
+            </div>
+
+
+        </div>
+
+
+
+        <link rel="stylesheet" href="style.css">
+        <script>
+
+            function showhelp() {
+                document.getElementById("helpel").showModal()
+            }
+            function closemod() {
+                document.getElementById("helpel").close()
+            }
+
+        </script>
+        <script type="module" src="core.js"></script>
+        <script type="module" src="config.js"></script>
+</body>
+
+</html>
+
+<!-- <div class="vista-avatar">
+    <img src="LOSBAVAVTAR.jpg" class="user-img" alt="haaaha_me_icon">
+    <img src="rDGyp.png" class="frame-overlay" alt="overlayer__vista___thing!">
+</div> -->
+<!-- <div class="shop-item" style="display: flex;">
+                            <div class="vista-avatar" style="margin-top: 18px; ">
+                                <img src="POWERICON.jpg" class="item-img" alt="haaaha_item-icon"
+                                    style="height: 100px;">
+                                <img src="rDGyp.png" class="frame-overlay" alt="overlayer__vista___thing!"
+                                    style="height: 100px; filter: hue-rotate(187deg) contrast(1.4);">
+                            </div>
+                            <div class="item-info">
+                                <h1>Power boost</h1>
+                                <p>Boosts your power!</p>
+                                <button class="shopperbutton" data-id="boost" onclick="buyItem('boost', this)">Buy: 150 FAC</button>
+                            </div>
+                        </div>
+                        
+                        <div class="shop-item" style="display: flex;">
+                            <div class="vista-avatar" style="margin-top: 18px;">
+                                <img src="BONUSICON.jpg" class="item-img" alt="haaaha_item-icon"
+                                    style="height: 100px; filter: contrast(10.);">
+                                <img src="rDGyp.png" class="frame-overlay" alt="overlayer__vista___thing!"
+                                    style="height: 100px; filter: hue-rotate(234deg) contrast(1.4);">
+                            </div>
+                            <div class="item-info">
+                                <h1>Power boost</h1>
+                                <p>Boosts your power!</p>
+                                <button class="shopperbutton" data-id="proost" onclick="buyItem('proost', this)">Buy: 150 FAC</button>
+                            </div>
+                        </div>
+
+                        <div class="shop-item" style="display: flex;">
+                            <div class="vista-avatar" style="margin-top: 18px;">
+                                <img src="LOSBAVAVTAR.jpg" class="item-img" alt="haaaha_item-icon"
+                                    style="height: 100px;">
+                                <img src="rDGyp.png" class="frame-overlay" alt="overlayer__vista___thing!"
+                                    style="height: 100px;">
+                            </div>
+                            <div class="item-info">
+                                <h1>Power boost</h1>
+                                <p>Boosts your power!</p>
+                                <button class="shopperbutton" data-id="auter" onclick="buyItem('auter', this)">Buy: 150 FAC</button>
+                            </div>
+                        </div> -->

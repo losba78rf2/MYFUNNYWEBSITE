@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>tester</title>
+  <link rel="stylesheet" href="node_modules/7.css/dist/7.css">
+</head>
+
+<body>
+  <div class="background">
+    <div class="window glass active" style="max-width: 900%">
+      <div class="title-bar">
+        <div class="title-bar-text"><img src="coffee_cup.webp" alt="" style="height: 12px; pointer-events: none;">Home
+          Page Yooo Wleocm</div>
+        <div class="title-bar-controls">
+          <button aria-label="Help" onclick="showhelp()"></button>
+        </div>
+      </div>
+      <div class="window-body has-space">
+        <nav>
+          <ul role="menubar" class="can-hover">
+            <li role="menuitem" tabindex="0" aria-haspopup="true">
+              <!-- /index.html -->
+              Home
+              <ul role="menu">
+                <li role="menuitem"><a href="/index.html">There's like nothing, lol</a></li>
+              </ul>
+            </li>
+            <li role="menuitem" tabindex="0" aria-haspopup="true">
+              Projects
+              <ul role="menu">
+                <li role="menuitem">hiaihahahhaha</li>
+              </ul>
+            </li>
+            <li role="menuitem" tabindex="0" aria-haspopup="true">
+              About
+              <ul role="menu">
+                <li role="menuitem" tabindex="0" aria-haspopup="true">
+                  Zoom
+                  <ul role="menu">
+                    <li role="menuitem"><button>Zoom In</button></li>
+                    <li role="menuitem"><button>Zoom Out</button></li>
+                  </ul>
+                </li>
+                <li role="menuitem"><a href="#menubar">Status Bar</a></li>
+              </ul>
+            </li>
+            <li role="menuitem" tabindex="0" aria-haspopup="true">
+              Help
+              <ul role="menu">
+                <li role="menuitem"><a href="#menubar">View Help</a></li>
+                <li role="menuitem"><a href="#menubar">About</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+        <section>
+          <div class="flexo" style="display: flex; gap: 15px; ">
+            <div class="vista-avatar">
+              <img src="LOSBAVAVTAR.jpg" class="user-img" alt="haaaha_me_icon">
+              <img src="rDGyp.png" class="frame-overlay" alt="overlayer__vista___thing!">
+            </div>
+            <div class="MeInfoAHAHA">
+              <h1>lOSBAOR (me)! avalialvelbaB;ALBA</h1>
+              <p>Hey.. It's me! <img src="hot.webp" alt=""
+                  style="position: absolute; height: 17px; pointer-events: none;"></p>
+              <button>Me untoutututututut<br>tutututututututu<br>ttutuututtututututu<br>tutututu<br>tutu</button>
+            </div>
+          </div>
+
+
+
+          <dialog id="helpel" style="background: none; border-width: 0px;">
+            <div class="window glass active" style="max-width: 300px">
+              <div class="title-bar">
+                <div class="title-bar-text">Help Show</div>
+                <div class="title-bar-controls">
+                  <button aria-label="Close" onclick="closemod()"></button>
+                </div>
+              </div>
+              <div class="window-body has-space">
+                <p>So helpful!</p>
+                <p>Thanks for seeking for help! You can close this window using this reeeed buttony</p>
+              </div>
+            </div>
+          </dialog>
+
+
+
+          <h1>Hello! Im lasbol</h1>
+          <p>and i jus t relalized i have nothing to tell about myself! <img src="telephone_receiver.webp" alt=""
+              style="position: absolute; height: 17px; pointer-events: none;"></p>
+          <div role="tooltip">I'm so smartxx.</div>
+
+          <br><br><br>
+          <button onclick="openmeme()" style="display: none;" id="burb">brrururb broceeedd</button>
+        </section>
+      </div>
+    </div>
+  </div>
+  <dialog id="lol">
+    <p id="haha">o kurwa</p>
+    <button id="lolbutton" style="display: none;" onclick="memeiter()">cotnieu</button>
+    <button id="DownBut" style="display: none;" onclick="setBlock('faket'); troll()">download real assets</button>
+    <br>
+    <div role="progressbar" class="animate" style="display: none;" id="faket">
+      <div style="width: 10%" id="fakebar"></div>
+    </div>
+    <button id="runner" style="display: none; position: fixed; transition: all 0.02s ease; height: 30px; z-index: 9999;" onclick="alert('Wh.. why did you chetat? THE GAME IS OVER1'); alert('ДА Я ВНАТУРЕ ЛЮТО СМОКНУЛ Е'); alert('ПОКА-ЧТО ВСЁ'); redirect()">HAHAHHAHAHAH AHJFH FKJSDHFKAJHA FSDKJL HJK</button>
+  </dialog>
+    
+  </div>
+  <link rel="stylesheet" href="style.css">
+  <script>
+    const shitsong = new Audio("https://github.com/losba78rf2/wes12/raw/refs/heads/main/tuffstep.mp3")
+    let percent = 1;
+    setTimeout(function () {
+      s =
+      document.getElementById("burb").style.display = "block"
+    }, 2500)
+    function changetext(textt) {
+      document.getElementById("haha").textContent = textt
+    }
+
+    function setstyle() {
+      document.getElementById("lolbutton").style.display = "block"
+    }
+    function setstylehide() {
+      document.getElementById("lolbutton").style.display = "none"
+    }
+    function openmeme() {
+      document.getElementById("lol").showModal()
+      shitsong.play()
+      setTimeout(changetext, 2500, "heylo")
+      setTimeout(setstyle, 5000)
+    }
+    function showhelp() {
+      document.getElementById("helpel").showModal()
+    }
+    function closemod() {
+      document.getElementById("helpel").close()
+    }
+
+    function setNone(id){
+      document.getElementById(id).style.display = "None"
+    }
+
+    function setBlock(id){
+      document.getElementById(id).style.display = "Block"
+    }
+
+    function memeiter() {
+      setstylehide()
+      // let myWindow = window.open("https://google.com");
+      // let myWindow2 = window.open("https://ru.pinterest.com/pin/316166836361150679/");
+      
+      // setTimeout(myWindow.close, 2500)
+      changetext("wait, why comeback?")
+      setTimeout(changetext, 1500, "It used to open google.com but i removed it so behold the legacy teeeeext")
+      setTimeout(changetext, 2500, "BEHOOOLD... YOOOOOUR POOOOOOD...      <br> ok bro now continue:")
+      setTimeout(changetext, 4500, "For more content?")
+      setTimeout(changetext, 8000, "Well, there's no more")
+      setTimeout(changetext, 15000, "IT'S 3:06 AM BRO I GOOTTAAA GOOOOO TO SLEEEP!!!")
+      setTimeout(setBlock, 17900, "DownBut")
+    }
+
+
+    function troll(){
+      let tinterval = setInterval(() => {
+        document.getElementById("fakebar").style.width = Math.floor(Math.random() * 101) + "%"
+      }, 50)
+      setNone("DownBut")
+      setTimeout(function() {
+        document.getElementById("faket").className = 'paused'
+      }, 5500)
+      setTimeout(changetext, 3000, "bro tf 🕊️💀😎😭😅 LMFAO YOU GORT STCRAMCMAMAMEMANAHAHAHHAHAAHH THIS DIWBKIAD WAS")
+      setTimeout(changetext, 4500, "!FAKE!")
+      setTimeout(changetext, 7500, "рФ\ || hA HAaaahaa you didn't oops i mean you WON'T click that!!!!!!!")
+      setTimeout(clearInterval, 5500, tinterval)
+      setTimeout(setBlock, 5500, 'runner')
+    }
+
+    document.getElementById("runner").addEventListener('mouseover', (event) => {
+        var x = Math.floor(Math.random() * (window.innerWidth - document.getElementById("runner").clientWidth));
+        var y = Math.floor(Math.random() * (window.innerHeight - document.getElementById("runner").clientHeight));
+        document.getElementById("runner").style.left = x + 'px';
+        document.getElementById("runner").style.top = y + 'px';
+    })
+    
+    function redirect(){
+      window.location.href = "./clicker.html"
+    }
+  </script>
+</body>
+
+</html>
