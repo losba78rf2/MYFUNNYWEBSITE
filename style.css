@@ -1,3 +1,6 @@
+* {
+    -webkit-overflow-scrolling: touch;
+}
 
 .vista-avatar {
     flex-shrink: 0;
@@ -36,4 +39,70 @@
     background: rgba(0, 162, 255, 0.1);
     outline: 1px solid rgba(0, 162, 255, 0.3);
     cursor: help; /* Типа "что это за хлам?" */
+}
+
+.click-ripple {
+    position: fixed;
+    width: 2px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.8);
+    border: 2px solid rgba(0, 251, 255, 0.1);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 999999;
+    animation: rippleEffect 0.6s ease-out forwards;
+}
+
+
+.not-genuine {
+    background: #000 !important; /* Тот самый чёрный экран смерти */
+    transition: all 1s ease-in;
+}
+
+#genuine-watermark {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    color: rgba(255, 255, 255, 0.7);
+    font-family: 'Segoe UI', sans-serif;
+    text-align: right;
+    pointer-events: none; /* Чтобы не мешало кликать */
+    z-index: 9999;
+    background: #00000031;
+}
+
+@keyframes rippleEffect {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(15); opacity: 0; }
+}
+
+/* Базовый стиль для магазина (для десктопа и больших экранов) */
+#shop-cont, #coll-cont {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 15px;
+    height: 550px; /* На компе можно и побольше */
+    overflow-y: visible;
+    overflow-x: hidden;
+    width: 100%;
+    box-sizing: border-box;
+    padding-bottom: 20px;
+    
+}
+
+/* А ТЕПЕРЬ МАГИЯ ДЛЯ МОБИЛОК (Айфонов и прочих) */
+@media (max-height: 700px) { 
+    /* Если экран низкий (как на iPhone SE) */
+    #shop-cont, #coll-cont {
+        height: 45vh; /* Делаем окошко магазина поменьше */
+        padding-bottom: 50px; /* Огромный запас, чтобы кнопки вылезли над плеером */
+    }
+}
+
+@media (min-height: 701px) and (max-height: 900px) {
+    /* Для средних и больших айфонов (12 Pro, 15 и т.д.) */
+    #shop-cont, #coll-cont {
+        height: 60vh; 
+        padding-bottom: 60px;
+    }
 }

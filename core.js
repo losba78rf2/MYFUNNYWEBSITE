@@ -1,11 +1,23 @@
 import { upgrades, achvs, GAME_CONFIG } from './config.js';
 
-const savedUpgrades = localStorage.getItem(`${GAME_CONFIG.saveKey}_upgrades`);
+let savedUpgrades = localStorage.getItem(`${GAME_CONFIG.saveKey}_upgrades`);
 const counter = document.getElementById("count")
 const clickbutton = document.getElementById("ClickButton")
 const stats = document.getElementById("Stats")
 const shop_container = document.getElementById("shop-cont")
 const coll_conatiner = document.getElementById("coll-cont")
+
+const CategoryNames = {
+    'all': 'Весь хлам',
+    'base': 'Основные вещички',
+    'key': 'Зарядки и Ключи',
+    'item': 'Гаджеты',
+    'disc': 'Диски',
+    'strengther': 'Бустеры',
+    'software': 'Софт',
+    'sale': '🔥 АКЦИИ (ГОРБУШКА) 🔥' // Добавили нашу акцию!
+};
+
 function checkAchievements() {
     for (let id in achvs) {
         let ach = achvs[id];
@@ -14,9 +26,14 @@ function checkAchievements() {
         let reached = false;
         if (ach.type === 'money' && SberBanks.money >= ach.goal) reached = true;
 
-        if (ach.type === 'item' && upgrades[ach.itemId]){
+        if (ach.type === 'item' && upgrades[ach.itemId]) {
             if (upgrades[ach.itemId].count >= ach.goal) {
                 reached = true;
+            }
+        }
+        if (ach.type === 'totalItems') {
+            if (SberBanks.totalitems >= ach.goal) {
+                reached = true
             }
         }
 
@@ -36,6 +53,7 @@ const SberBanks = {
     _bonus: 1,
     _aps: 0,
     _mp3Collapsed: localStorage.getItem(`${GAME_CONFIG.saveKey}_mp3Collapsed`) === 'true',
+    _totalitems: 0,
 
     get mp3player() { return this._mp3Collapsed },
     set mp3player(vl) {
@@ -90,20 +108,45 @@ const SberBanks = {
         const mp3 = document.getElementById("playerwind");
         if (!mp3) return;
         mp3.style.bottom = this._mp3Collapsed ? "-450px" : "0px";
-    }
+    },
+
+    get totalitems() {
+        return this._totalitems;
+    },
+
+    set totalitems(vl) {
+        this._totalitems = vl;
+        localStorage.setItem(`${GAME_CONFIG.saveKey}_TotalItems`, this._totalitems);
+        const el = document.getElementById('TotalXlam');
+        if (el) el.textContent = `Всего ${this._totalitems}`;
+    },
 };
-const sounds = {
-    ach: new Audio('https://archive.org/download/win95sounds/tada.mp3'),
-    buy: new Audio('https://www.myinstants.com/media/sounds/roblox-cash-register.mp3'),
-    click: new Audio(''),
-    error: new Audio('https://archive.org/download/windows98microsoftplus-sounds/w98sounds/CHORD.mp3'),
-    shimmer: new Audio('https://dn711100.ca.archive.org/0/items/Boot_Sounds_Compilation/Windows%2098%20-%20Boot.mp3')
+
+function recalcTI() {
+    let total = 0
+    for (let key in upgrades) {
+        if (upgrades[key].type === 'item') {
+            console.log(upgrades[key].count)
+            total += upgrades[key].count || 0
+        }
+    }
+    SberBanks.totalitems = total
 }
 
-function playsound(SName){ //SoundName
-    if (sounds[SName]){
+const sounds = {
+    ach: new Audio('https://archive.org/download/win95sounds/tada.mp3'),
+    buy: new Audio('https://github.com/losba78rf2/MYFUNNYWEBSITE/raw/refs/heads/main/roblox-cash-register.mp3'),
+    click: new Audio(''),
+    error: new Audio('https://archive.org/download/windows98microsoftplus-sounds/w98sounds/CHORD.mp3'),
+    shimmer: new Audio('https://dn711100.ca.archive.org/0/items/Boot_Sounds_Compilation/Windows%2098%20-%20Boot.mp3'),
+    longhorn: new Audio('https://dn710201.ca.archive.org/0/items/Microsoft_Windows-Longhorn-Reloaded-System-Sounds/Windows-Longhorn-Reloaded-sound-effects/longhorn_reloaded_%5Bwinsounds.com%5D_767/LHR%20Logon.mp3'),
+    vista: new Audio('https://archive.org/download/Boot_Sounds_Compilation/Windows%20Vista%20-%20Boot.mp3')
+}
+
+function playsound(SName) { //SoundName
+    if (sounds[SName]) {
         sounds[SName].currentTime = 0
-        sounds[SName].play().catch(e => console.log("Браузер заблокировал звук до первого клика"));
+        sounds[SName].play().catch(e => console.log("Браузер заблокировал звук до первого клика " + e));
     }
 }
 
@@ -112,6 +155,11 @@ SberBanks.money = Number(localStorage.getItem(`${GAME_CONFIG.saveKey}_money`) ||
 SberBanks.power = Number(localStorage.getItem(`${GAME_CONFIG.saveKey}_power`) || 1)
 SberBanks.bonus = Number(localStorage.getItem(`${GAME_CONFIG.saveKey}_bonus`) || 1)
 SberBanks.aps = Number(localStorage.getItem(`${GAME_CONFIG.saveKey}_AutoMoneys`) || 0)
+SberBanks.totalitems = Number(localStorage.getItem(`${GAME_CONFIG.saveKey}_TotalItems`) || 0)
+
+
+
+
 
 setInterval(() => {
     if (SberBanks.aps > 3) {
@@ -124,19 +172,31 @@ setInterval(() => {
 
 
 function Click() {
-    SberBanks.money += (Number(SberBanks.power) * Number(SberBanks.bonus))
+    SberBanks.money += (Number(SberBanks.power) * Number(SberBanks.bonus)) * Number(GAME_CONFIG.IncomeMultiplier)
 }
+
 function showPlayer() {
     const mp3player = document.getElementById("playerwind")
     mp3player.style.display = "block"
 }
 
+
+console.log("%cАЛЁ! ТЫ ЗАЧЕМ СЮДА ЗАЛЕЗ?! ХОЧЕШЬ FAC НАКРУТИТЬ? Я ВСЁ ВИЖУ! \nGET OUT! GET THE FUCK OUT!!!! haha!", "color: red; font-size: 20px; background: yellow;");
 function renderShop() {
-    shop_container.innerHTML = ""
+    checkWindaActivat()
+    shop_container.innerHTML = "" //ПРИВЕ5Т
     coll_conatiner.innerHTML = ""
+
+    const select = document.getElementById("category-select")
+    const activeCategory = select ? select.value : 'all'
 
     for (let id in upgrades) {
         let item = upgrades[id]
+        const itemCateg = item.category || item.type
+        if (activeCategory !== 'all' && itemCateg !== activeCategory) {
+            continue
+        }
+
         const isFulled = item.count >= item.limit
         const isAffordable = SberBanks.money >= item.price ? "" : "opacity: 0.5; cursor: not-allowed;";
 
@@ -144,9 +204,19 @@ function renderShop() {
         let btnClass = "shopperbutton";
         let btnDisabled = "";
 
+        if (item.requires && (!upgrades[item.requires] || upgrades[item.requires].count === 0)) {
+            continue;
+        }
+
         let trollTip = "";
-        if (item.count > 100) {
+        if (item.name === 'Крутка в геншин испмпакат!!!!') {
+            trollTip = "Ты дурак. Гой. \nНу если ты не понял то ты реальный гой, за это даже ачивки не будет";
+        } else if (item.name === 'Iphone20') {
+            trollTip = "Удачи скачать приложение сбербанк онлайн.";
+        } else if (item.count > 100) {
             trollTip = "АЛЁ! ТЫ ОБРУШИШЬ ЭКОНОМИКУ СТРАНЫ! ОСТАНОВИСЬ!";
+        } else if (item.name.toLowerCase().includes('windows')) {
+            trollTip = "виндус лицензия! ура!";
         } else if (item.count > 50) {
             trollTip = "Нафига тебе столько? Ты чё, перекуп с Горбушки?";
         } else if (item.count > 10) {
@@ -155,7 +225,8 @@ function renderShop() {
             trollTip = `Твой честно заработанный ${item.name}!`; //Вырезанное: было так Твой честно заработанный ${item.name}. Глянец так и прёт!
         }
 
-        if ((isFulled || item.count > 9) && item.increment == 1) {
+        let newElement = null
+        if (isFulled || item.type === 'item' && item.count > 0) {
             coll_conatiner.innerHTML += `
             <div class="shop-item" style="display: flex;" title="${trollTip}">
                 <div class="vista-avatar">
@@ -169,6 +240,23 @@ function renderShop() {
                 </div>
             </div>
             `
+            newElement = coll_conatiner.lastElementChild
+            newElement.addEventListener('mouseenter', () => {
+                let soundTimer = setTimeout(() => {
+                    if (item.name === 'Крутка в геншин испмпакат!!!!') {
+                        playsound('error');
+                    } else if (item.name === 'Iphone20') {
+                        playsound('shimmer');
+                    }
+                }, 650);
+
+
+                newElement.addEventListener('mouseleave', () => {
+                    // ВАЖНО: Если мышка ушла раньше, чем через 700мс — отменяем звук
+                    clearTimeout(soundTimer);
+                });
+            });
+
         } if (!isFulled) {
             shop_container.innerHTML += `
                 <div class="shop-item" style="display: flex; ${isFulled ? 'opacity: 0.7;' : ''}">
@@ -194,6 +282,83 @@ function renderShop() {
     }
 }
 
+function checkWindaActivat() {
+    // Проверяем, есть ли хоть одна лицензия в инвентаре
+    const hasVista = upgrades.WVL && upgrades.WVL.count > 0;
+    const hasWin7 = upgrades.W7L && upgrades.W7L.count > 0;
+    const isActivated = hasVista || hasWin7;
+
+    const watermark = document.getElementById('genuine-watermark');
+
+    if (isActivated) {
+        // Если лицензия есть — чистим всё
+        document.body.classList.remove('not-genuine');
+        if (watermark) watermark.remove();
+        GAME_CONFIG.incomeMultiplier = 1.0;
+
+        // Бонус: если активировали, можно вернуть обои по умолчанию
+        // document.body.style.backgroundImage = "url('ваши_обои.jpg')";
+    } else {
+        // Если лицензии нет — запускаем пиратский режим
+        // Проверка !watermark нужна, чтобы не плодить надписи при каждом рендере
+        if (!watermark) {
+            triggerPirateEvent();
+        }
+    }
+}
+
+// 2. ИНИЦИАЛИЗАЦИЯ КАТЕГОРИЙ (только наполнение селекта)
+function initCategoriesInInverntory() {
+    const select = document.getElementById("category-select");
+    if (!select) return;
+
+    // Сохраняем текущий выбор, чтобы он не слетал при обновлении
+    const currentValue = select.value || 'all';
+
+    const categories = new Set();
+    for (let id in upgrades) {
+        categories.add(upgrades[id].category || upgrades[id].type);
+    }
+
+    // Всегда добавляем категорию 'sale', даже если в upgrades её пока нет (для будущего)
+    categories.add('sale');
+
+    select.innerHTML = ''; // Чистим старое
+
+    // Проходимся по словарю, чтобы порядок всегда был одинаковый
+    for (let code in CategoryNames) {
+        if (code === 'all' || categories.has(code)) {
+            const option = document.createElement('option');
+            option.value = code;
+            option.textContent = CategoryNames[code];
+            select.appendChild(option);
+        }
+    }
+
+    select.value = currentValue; // Возвращаем выбор на место
+    select.onchange = () => renderShop();
+}
+
+// 3. ИНИЦИАЛИЗАЦИЯ ТАБОВ (вызывается ОДИН РАЗ при старте игры)
+function initTabs() {
+    const tabs = document.querySelectorAll('menu[role="tablist"] button');
+
+    tabs.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const targetPaneId = btn.getAttribute('aria-controls');
+
+            // Просто перерисовываем всё с ТЕКУЩИМ фильтром, который стоит в селекте
+            // Никаких select.value = 'all' здесь быть не должно!
+            renderShop();
+
+            console.log(`Перешли в ${targetPaneId}, фильтр остался: ${document.getElementById("category-select")?.value}`);
+        });
+    });
+}
+// Запускаем табы один раз!
+initTabs();
+initCategoriesInInverntory();
+
 function renderACHVS() {
     const achvs_shelf = document.getElementById("achvs-grid");
     if (!achvs_shelf) return;
@@ -207,21 +372,22 @@ function renderACHVS() {
         const item = achList[id];
         const isDone = item.done;
 
-
         const statusClass = isDone ? "ach-earned" : "ach-locked";
         const cardStyle = isDone ? "" : "opacity: 0.15; filter: grayscale(1) blur(2px);";
 
         const nameShow = isDone ? item.name : "???";
         const descShow = isDone ? item.desc : "Заблокировано";
 
-        let targetItem = upgrades[item.itemId]; 
+        let targetItem = upgrades[item.itemId];
         let goal = isDone ? item.goal + ' ' + item.itemId : "Secret"
-        
-        if (isDone){
-            if (item.type === 'money'){
+
+        if (isDone) {
+            if (item.type === 'money') {
                 goal = item.goal + ` ${GAME_CONFIG.currency}`
-            } else if (item.type === 'item' && targetItem){
-                goal = item.goal + ' ' + " ШТ. " + targetItem.name
+            } else if (item.type === 'item' && targetItem && item.goal == 1) {
+                goal = "Получите " + targetItem.name
+            } else if (item.type === 'item' && targetItem) {
+                goal = "Получите " + item.goal + ' штук ' + targetItem.name
             }
         }
         achvs_shelf.innerHTML += `
@@ -244,6 +410,7 @@ function renderACHVS() {
 
 renderShop()
 renderACHVS()
+
 function buyItem(id) {
     let item = upgrades[id]
     if (item.count >= item.limit) return;
@@ -255,7 +422,7 @@ function buyItem(id) {
         SberBanks.aps += Number(item.aps)
         item.price *= item.increment
         item.count++
-
+        recalcTI()
         playsound('buy')
         localStorage.setItem(`${GAME_CONFIG.saveKey}_upgrades`, JSON.stringify(upgrades));
         renderShop()
@@ -267,7 +434,6 @@ function buyItem(id) {
 
 if (savedUpgrades) {
     const loadi = JSON.parse(savedUpgrades)
-
     for (let item in loadi) {
         if (upgrades[item]) {
             upgrades[item].price = loadi[item].price
@@ -315,7 +481,7 @@ function showAchievement(ach) {
         
     </div>
     `;
-    
+
     document.body.appendChild(toast);
     setTimeout(() => toast.style.right = "20px", 100);
     playsound('ach')
@@ -373,6 +539,20 @@ document.addEventListener('DOMContentLoaded', () => {
             const targetPanel = document.getElementById(targetId);
             if (targetPanel) {
                 targetPanel.removeAttribute("hidden");
+
+                // --- ЛОГИКА ПЕРЕЕЗДА СЕЛЕКТА ---
+                const select = document.getElementById("category-select");
+                if (select) {
+                    // Находим заголовок <h1> внутри активной панели
+                    const title = targetPanel.querySelector("h1");
+                    if (title) {
+                        // Вставляем селект сразу ПОСЛЕ заголовка h1
+                        title.after(select);
+                    } else {
+                        // Если заголовка нет, просто кидаем в начало панели
+                        targetPanel.prepend(select);
+                    }
+                }
                 // Фикс сетки при переключении
                 renderShop();
             }
@@ -391,7 +571,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     // 4. АЧИВКИ ЗАКРЫТЬ
     const closebtn = document.getElementById('close-ach-btn')
-    if (closebtn){
+    if (closebtn) {
         closebtn.addEventListener('click', (e) => {
             playsound('ach')
             SetDispToHall('none', e)
@@ -400,11 +580,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 5. АЧИВКИ ОТКРЫТЬ
     const open_hallbtn = document.getElementById('open-hall-btn')
-    if (open_hallbtn){
-        
+    if (open_hallbtn) {
+
         open_hallbtn.addEventListener('click', (e) => {
             playsound('shimmer')
-            SetDispToHall('flex', e)})
+            SetDispToHall('flex', e)
+        })
     }
     // 3. МАГАЗИН (Делегирование кликов)
     const shopContainer = document.querySelector('.shop');
@@ -428,9 +609,102 @@ document.addEventListener('DOMContentLoaded', () => {
     renderShop();
 });
 
-function SetDispToHall(disptype){
+function SetDispToHall(disptype) {
     const hall = document.getElementById("hall-of-achvs")
-    if (hall){
+    if (hall) {
         hall.style.display = disptype
     }
 }
+
+document.getElementById('ClickButton').addEventListener('mousedown', (e) => {
+    const ripple = document.createElement('div');
+    ripple.className = 'click-ripple';
+    ripple.style.left = `${e.clientX}px`;
+    ripple.style.top = `${e.clientY}px`;
+    document.body.appendChild(ripple);
+
+    setTimeout(() => ripple.remove(), 600);
+});
+
+async function fetchJok() {
+    try {
+        const response = await fetch('https://official-joke-api.appspot.com/random_joke')
+        const data = await response.json()
+
+        const jokeTitl = data['setup']
+        const jokeitself = data['punchline']
+
+        const joketitle = document.getElementById("joketitl")
+        const jokeparag = document.getElementById("jokeparag")
+
+        joketitle.textContent = jokeTitl
+        jokeparag.textContent = jokeitself
+        document.getElementById('Trollington').showModal()
+    } catch (err) {
+        console.error("Упс, шутки кончились:", err);
+    }
+}
+
+function StartRandTime() {
+    const min = 180000;
+    const max = 780000;
+    const TrollTimer = Math.floor(Math.random() * (max - min + 1)) + min;
+
+    setTimeout(() => {
+        fetchJok()
+        StartRandTime()
+    }, TrollTimer);
+}
+
+function triggerPirateEvent() {
+    // 1. Меняем фон на чёрный
+    document.body.classList.add('not-genuine');
+
+    // 2. Спавним ту самую надпись
+    const watermark = document.createElement('div');
+    watermark.id = 'genuine-watermark';
+    watermark.innerHTML = `
+        <p>Ваша копия Windows не является подлинной</p>
+        <p style="font-size: 0.8em;">Вы, возможно, стали жертвой подделки программного обеспечения.</p>
+    `;
+    document.body.appendChild(watermark);
+
+    // 3. Дебафф: режем доход в 2 раза
+    GAME_CONFIG.incomeMultiplier = 0.5;
+
+    // 4. Озвучка ошибки винды
+    if (typeof playsound === 'function') playsound('xp-error');
+}
+
+
+let sequence = "";
+let LHMode = false;
+let lhInterval;
+document.addEventListener('keydown', (e) => {
+    sequence += e.key.toLowerCase();
+    if (sequence.includes("longhorn")) {
+        LHMode = true;
+        alert("Welcome to the Future! Активирован режим Longhorn 🐮");
+        GAME_CONFIG.IncomeMultiplier = 500000
+        document.body.style.filter = "hue-rotate(150deg) contrast(1.2)"; // рофло-эффект смены цвета
+        playsound('longhorn')
+        playsound('vista')
+        lhInterval = setInterval(() => {
+                counter.textContent = "КУЧА ФАК!!! дщтпрщкт"
+        }, 100);
+        
+        setTimeout(() => {
+            document.body.style.filter = "hue-rotate(0deg) contrast(1)";
+            console.log("Back to 2026...");
+            LHMode = false
+            clearInterval(lhInterval)
+        }, 10000); 
+        sequence = "";
+    }
+    // Очищаем строку, чтобы не копилась бесконечно
+    if (sequence.length > 20) sequence = "";
+});
+
+
+StartRandTime()
+recalcTI()
