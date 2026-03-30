@@ -1,4 +1,5 @@
 import { upgrades, achvs, GAME_CONFIG } from './config.js';
+import { activateBuff, activeBuffs, updateIncome, buffs } from './buffs.js'
 
 let savedUpgrades = localStorage.getItem(`${GAME_CONFIG.saveKey}_upgrades`);
 const counter = document.getElementById("count")
@@ -6,7 +7,7 @@ const clickbutton = document.getElementById("ClickButton")
 const stats = document.getElementById("Stats")
 const shop_container = document.getElementById("shop-cont")
 const coll_conatiner = document.getElementById("coll-cont")
-
+const buff_cont = document.getElementById("BuffDiv")
 const CategoryNames = {
     'all': 'Весь хлам',
     'base': 'Основные вещички',
@@ -15,9 +16,8 @@ const CategoryNames = {
     'disc': 'Диски',
     'strengther': 'Бустеры',
     'software': 'Софт',
-    'sale': '🔥 АКЦИИ (ГОРБУШКА) 🔥' // Добавили нашу акцию!
+    'sale': '🔥 АКЦИИ (ГОРБУШКА) 🔥' 
 };
-
 
 function checkAchievements() {
     for (let id in achvs) {
@@ -127,7 +127,7 @@ function recalcTI() {
     let total = 0
     for (let key in upgrades) {
         if (upgrades[key].type === 'item') {
-            console.log(upgrades[key].count)
+            // console.log(upgrades[key].count) // дебажка
             total += upgrades[key].count || 0
         }
     }
@@ -162,15 +162,31 @@ function recalcPowerBonus() {
         aps += (item.aps || 0) * count
     }
 
-    // Обновляем SberBanks
+    // Обновляем c,cmnk ска сбербанк
     SberBanks.power = power
     SberBanks.bonus = bonus
     SberBanks.aps = aps
 
-    console.log(`Пересчитано: power=${power}, bonus=${bonus}, aps=${aps}`)
+    console.log(`Пересчитано: power=${power}, bonus=${bonus}, aps=${aps} ОЕ ОЕОЕОЕОЕОЕОЕОЕОЕ ААААХХАХА ЗЗЕЕШЩХ\Э ХЫВАЗ`)
 }
 
+function startRandomBuffs() {
+    setInterval(() => {
+        // список всех ключей баффов
+        const keys = Object.keys(buffs);
+        // Выбираем случайный
+        const randomKey = keys[Math.floor(Math.random() * keys.length)];
+        
 
+        const success = activateBuff(randomKey);
+        
+        // if (success) {
+        //     console.log(` Рандомное событие: ${buffs[randomKey].name}`);
+        // }
+    }, 5 * 60 * 100); // 5 минут в миллисекундах
+}
+
+// АУДИО ЖВЖА ДВИЖОКЧЕК
 const sounds = {
     ach: new Audio('https://archive.org/download/win95sounds/tada.mp3'),
     buy: new Audio('https://github.com/losba78rf2/MYFUNNYWEBSITE/raw/refs/heads/main/roblox-cash-register.mp3'),
@@ -179,17 +195,19 @@ const sounds = {
     shimmer: new Audio('https://dn711100.ca.archive.org/0/items/Boot_Sounds_Compilation/Windows%2098%20-%20Boot.mp3'),
     longhorn: new Audio('https://dn710201.ca.archive.org/0/items/Microsoft_Windows-Longhorn-Reloaded-System-Sounds/Windows-Longhorn-Reloaded-sound-effects/longhorn_reloaded_%5Bwinsounds.com%5D_767/LHR%20Logon.mp3'),
     vista: new Audio('https://archive.org/download/Boot_Sounds_Compilation/Windows%20Vista%20-%20Boot.mp3'),
-    rington: new Audio('sounds/c55_asia.mp3')
+    rington: new Audio('sounds/c55_asia.mp3'),
+    bak: new Audio('music/buster.mp3')
 
 }
 
 function playsound(SName) { //SoundName
     if (sounds[SName]) {
+        sounds[SName].volume = 0.5
         sounds[SName].currentTime = 0
         sounds[SName].play().catch(e => console.log("Браузер заблокировал звук до первого клика " + e));
     }
 }
-
+// АУДИО ЖВЖА ДВИЖОКЧЕК
 
 SberBanks.applyPlayerPosition();
 SberBanks.money = Number(localStorage.getItem(`${GAME_CONFIG.saveKey}_money`) || 0)
@@ -219,7 +237,7 @@ function showPlayer() {
 }
 
 
-console.log("%cАЛЁ! ТЫ ЗАЧЕМ СЮДА ЗАЛЕЗ?! ХОЧЕШЬ FAC НАКРУТИТЬ? Я ВСЁ ВИЖУ! \nGET OUT! GET THE FUCK OUT!!!! haha!", "color: red; font-size: 20px; background: yellow;");
+
 function renderShop() {
     checkWindaActivat()
     shop_container.innerHTML = "" //ПРИВЕ5Т
@@ -318,10 +336,17 @@ function renderShop() {
             showPlayer()
         }
     }
-
-
+    console.log("%cАЛЁ! ТЫ ЗАЧЕМ СЮДА ЗАЛЕЗ?! ХОЧЕШЬ FAC НАКРУТИТЬ? Я ВСЁ ВИЖУ! \nGET OUT! GET THE FUCK OUT!!!! haha!", "color: red; font-size: 20px; background: yellow;");
 }
-
+function renderBuffs(){
+    buff_cont.innerHTML = ''
+    for (let id in activeBuffs){
+        const buff = activeBuffs[id]
+        buff_cont.innerHTML += `
+        <img src="${buff.icon}" alt="" height="20" width="20" alt="${buff.name}" title="${buff.name}">
+        `
+    }
+}
 function checkWindaActivat() {
     // Проверяем, есть ли хоть одна лицензия в инвентаре
     const hasVista = upgrades.WVL && upgrades.WVL.count > 0;
@@ -444,7 +469,7 @@ function renderACHVS() {
             </div>
         `;
     }
-    console.log("Зал Славы отрендерен!");
+    // console.log("Зал Славы отрендерен!"); // ДЕБАЖКАКЛАКПЛОДЛЫЯВОДПАЫЖ ееее бой зал славы работает черт возьми исправно!
 }
 
 
@@ -478,9 +503,11 @@ if (savedUpgrades) {
     const loadi = JSON.parse(savedUpgrades)
     for (let item in loadi) {
         if (upgrades[item]) {
-            upgrades[item].price = loadi[item].price
+            
             upgrades[item].count = loadi[item].count
-            renderShop()
+            upgrades[item].price = Math.floor(
+                upgrades[item].price * Math.pow(upgrades[item].increment, upgrades[item].count)
+            );
         }
     }
     renderShop()
@@ -719,7 +746,7 @@ function triggerPirateEvent() {
     GAME_CONFIG.incomeMultiplier = 0.5;
 
     // 4. Озвучка ошибки винды
-    if (typeof playsound === 'function') playsound('xp-error');
+    if (typeof playsound === 'function') playsound('error');
 }
 
 
@@ -741,21 +768,43 @@ document.addEventListener('keydown', (e) => {
 
         setTimeout(() => {
             document.body.style.filter = "hue-rotate(0deg) contrast(1)";
-            console.log("Back to 2026...");
+            console.log("Back to 2026... прив кста нах ты читаешь код а а ???аааа,, ?!?!");
             LHMode = false
             clearInterval(lhInterval)
         }, 10000);
+        sequence = "";
+    } else if (sequence.includes("бак")){
+        alert("ОЙ РЕБЯТА....");
+        document.body.style.filter = "hue-rotate(150deg) contrast(1.2)"; // рофло-эффект смены цвета
+        playsound('longhorn')
+        playsound('bak')
+        GAME_CONFIG.IncomeMultiplier = 500
+
+        setTimeout(() => {
+            document.body.style.filter = "hue-rotate(0deg) contrast(1)";
+            console.log("Было круто, правда?");
+        }, 300000);
         sequence = "";
     }
     // Очищаем строку, чтобы не копилась бесконечно
     if (sequence.length > 20) sequence = "";
 });
+
 //ОБРЕЗ ЕСЛИ СЛИШКОМ БОГАЧ СКА
 // if (SberBanks.bonus >= 900){
 //     SberBanks.bonus = SberBanks.bonus / 5
 // }
 
+let ticks = setInterval(() => {
+    // console.log(GAME_CONFIG.IncomeMultiplier) // дебажка
+    renderBuffs()
+    updateIncome()
 
+}, 1000);
+
+ticks
+
+startRandomBuffs();
 
 
 StartRandTime()

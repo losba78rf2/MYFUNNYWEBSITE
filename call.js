@@ -11,34 +11,33 @@ const sounds = {
 
 }
 
-function playsound(SName) { //SoundName
+function playsound(SName) { 
     if (sounds[SName]) {
         sounds[SName].currentTime = 0
         sounds[SName].play().catch(e => console.log("Браузер заблокировал звук до первого клика " + e));
     }
 }
-// Глобальный счётчик звонков — потому что W всё видит
+
 let wCallCount = 0
 
 // Функция звонка
 function callW() {
     wCallCount++
 
-    // Эффект: вибрация (если поддерживается)
+    // вибрация 
     if (navigator.vibrate) {
         navigator.vibrate([100, 50, 100, 50, 200]) // W W W
     }
 
-    // Звук — должен быть культовым
 
     playsound('rington')
-    // Экран трясётся — как W595 в режиме Shake Control
+
     document.body.style.animation = 'shake 0.5s ease'
     setTimeout(() => {
         document.body.style.animation = ''
     }, 500)
 
-    // Сообщение, которое зависит от количества звонков
+    // Сообщение 4н45 
     const messages = [
         "📞 Бро не, давай без этого бро",
         "📞 W не отвечает. Но ты чувствуешь — он знает.",
@@ -50,10 +49,12 @@ function callW() {
         "📞 Ошибка: W перегружен запросами. Попробуй через 55 секунд.",
         "📞 Подключение к W... 3%... 5%... отменено. W не хочет.",
         "📞 Ты услышал короткие гудки. Это — благословение.",
-        "📞 W: «Не надо.»"
+        "📞 W: «Не надо.»",
+        "воиё пш вцв кв млкьи, ъпл мнлопл юнвбьпёкэ фвнпляэь или",
+        "📞 L: АЛО С**КА НЕ ЗВАОНИ СЮДА Я ЩАС УМРУ БЛ№№№№№№№№№№№",
     ]
 
-    // Показываем сообщение (можно в отдельный div, например #w-call-log)
+    // сообзщеапние функция
     setTimeout(() => {
         const log = document.getElementById('w-call-log')
         if (log) {
@@ -67,12 +68,10 @@ function callW() {
         }
     }, 7000);
 
-    // Достижение: 5 звонков
     if (wCallCount === 5) {
         alert("Ты звонил. Он слышал.")
     }
 
-    // Секрет: 55 звонков — особый эффект
     if (wCallCount === 55) {
         document.body.style.filter = 'hue-rotate(90deg)'
         setTimeout(() => {

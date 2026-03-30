@@ -1,3 +1,5 @@
+/* АЛО СКА ВЫЛЕЗИ ОТСЮДА НАХ НАХРЕН ЕСЛИ ТЫ ИГРОК */
+
 * {
     -webkit-overflow-scrolling: touch;
 }
@@ -29,8 +31,8 @@
     position: absolute;
     top: 0;
     left: 0;
-    /* width: 100%;
-    height: 100%; */
+    /* width: 100%; -- СТАРОЕ
+    height: 100%;  -- НУ ЕСЛИ ТЫ НЕ ПОНЯЛ ТО РИЛ СТАРОЕ */ 
     pointer-events: none; /* Чтобы рамка не мешала кликать на фото */
     z-index: 2; 
     filter: hue-rotate(3478609deg) contrast(1.4);
@@ -38,7 +40,7 @@
 #coll-cont div:hover {
     background: rgba(0, 162, 255, 0.1);
     outline: 1px solid rgba(0, 162, 255, 0.3);
-    cursor: help; /* Типа "что это за хлам?" */
+    cursor: help; /* Типа "что это за хлам?"  ХЕЛП!!""!!*/
 }
 
 .click-ripple {
@@ -55,7 +57,7 @@
 
 
 .not-genuine {
-    background: #000 !important; /* Тот самый чёрный экран смерти */
+    background: #000 !important; /* Тот самый чёрный экран смерти АЗЗХААХАХА КАКОЙ СМЕРТИ ВООБЗЕТО НЕЛЕГЕТИМНОЙ ФИГНИ ВИНДЫ */
     transition: all 1s ease-in;
 }
 

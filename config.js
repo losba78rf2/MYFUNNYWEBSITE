@@ -1,7 +1,7 @@
 export const GAME_CONFIG = {
     currency: "FAC",
     startMoney: 0,
-    IncomeMultiplier: 1, // for custom events and stuff
+    IncomeMultiplier: 1, // for custom events and stuff, after buff is done, it will revert to 1, so modifying it works only really early ga,e
     saveKey: "FrutigAeroClicker_by_losba", // Key used in saving system. ie: FrutigerClicker_v21_money, FrutigerClicker_v21_power
     OutOfStockText: "НЕНЕ ЧУВАК АЛО НЕТУ"
 };
@@ -93,7 +93,7 @@ export const upgrades = {
         img: "UpgradesPhotos/psp.webp",
         price: 7000, power: 0, bonus: 0.2, count: 0, aps: 0,
         type: 'item', rarity: 'common', category: 'base',
-        increment: 1, limit: Infinity, requires: null
+        increment: 1, limit: 555, requires: null
     },
     NDS: {
         name: "Nintendo бесполезно 'ДуалСкрин Двойной Экран7'",
@@ -101,7 +101,7 @@ export const upgrades = {
         img: "UpgradesPhotos/nds.png",
         price: 5000, power: 0, bonus: 0.2, count: 0, aps: 0,
         type: 'item', rarity: 'common', category: 'base',
-        increment: 1, limit: Infinity, requires: null
+        increment: 1, limit: 555, requires: null
     },
     WVL: {
         name: "Windows Vista лицензия",
@@ -140,10 +140,10 @@ export const upgrades = {
     W595: {
         name: "Sony Ericsson W595",
         desc: `Оранжевый глянец и логотип, похожий на каплю ртути. 
-    Главная фишка — функция Shake Control': тряси телефон, чтобы пер
-    еключить трек (и случайно вывихнуть запястье). Если не купишь зарядку,
-     он даже не пискнет своим фирменным рингтоном. Внимание: зарядка работает,
-      только если придавить её сверху тяжёлым учебником`,
+        Главная фишка — функция Shake Control': тряси телефон, чтобы пер
+        еключить трек (и случайно вывихнуть запястье). Если не купишь зарядку,
+        он даже не пискнет своим фирменным рингтоном. Внимание: зарядка работает,
+        только если придавить её сверху тяжёлым учебником`,
         img: "https://mobilmarket.ru/f/article/w595_w595-all.jpg",
         price: 10000, power: 0, bonus: 0.2, count: 0, aps: 0,
         type: 'item', rarity: 'common', category: 'base',
@@ -195,7 +195,7 @@ export const upgrades = {
         img: "https://i.ebayimg.com/images/g/iF0AAOSwGFtnyhGo/s-l1600.jpg",
         price: 15000, power: 3, bonus: 1, count: 0, aps: 3,
         type: 'item', rarity: 'common', category: 'key',
-        increment: 2, limit: 500, requires: 'PSP'
+        increment: 1.05, limit: 500, requires: 'PSP'
     },
     GOCAM: {
         name: "Внешняя камера GoCam!",
@@ -211,7 +211,7 @@ export const upgrades = {
         img: "https://img.joomcdn.net/0ffeba958ac437c7f2bd4aece794a116322cc6a4_original.jpeg",
         price: 60000, power: 12, bonus: 4, count: 0, aps: 6,
         type: 'item', rarity: 'common', category: 'key',
-        increment: 2, limit: 500, requires: 'PSP'
+        increment: 1.05, limit: 500, requires: 'PSP'
     },
     PSPGPS: {
         name: "GPS-приемник PSP-290",
@@ -246,8 +246,73 @@ export const upgrades = {
         price: 80000, power: 10, bonus: 12, count: 0, aps: 2,
         type: 'item', rarity: 'rare', category: 'key',
         increment: 1, limit: 250, requires: 'NDS'
-    }
+    },
 
+    // wiii
+    WIM: {
+        name: "WiiMote",
+        desc: `Wiii remootee`,
+        img: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Wiimote-Safety-First.jpg/250px-Wiimote-Safety-First.jpg",
+        price: 80000, power: 10, bonus: 12, count: 0, aps: 2,
+        type: 'item', rarity: 'rare', category: 'key',
+        increment: 1.1, limit: 250, requires: 'NW'
+    },
+
+
+    h4: {
+        name: "Halo 4",
+        desc: `Аахахахахаха`,
+        img: "https://avatars.mds.yandex.net/get-marketpic/1598151/pic9707cd16370f2a970f78788ea2d0d0a0/orig",
+        price: 3500, power: 10, bonus: 12, count: 0, aps: 2,
+        type: 'item', rarity: 'rare', category: 'disc',
+        increment: 2, limit: 250, requires: 'X360'
+    },
+    h3: {
+        name: "Halo 3",
+        desc: `не пон откуда оно тут`,
+        img: "https://avatars.mds.yandex.net/i?id=8d311cbd3c7203ef223325401e649f3e_l-4961046-images-thumbs&n=13",
+        price: 3500, power: 100, bonus: 120, count: 0, aps: 20,
+        type: 'item', rarity: 'rare', category: 'disc',
+        increment: 3, limit: 250, requires: 'h4'
+    },
+
+    lp: {
+        name: "LBP PSP",
+        desc: `крутая игра!!!`,
+        img: "https://i.ebayimg.com/images/g/iUMAAOSwvtlne07Y/s-l1600.jpg",
+        price: 1500, power: 100, bonus: 120, count: 0, aps: 20,
+        type: 'item', rarity: 'rare', category: 'disc',
+        increment: 1.2, limit: 250, requires: 'PSP'
+    },
+
+    CHEAT: {
+        name: "Unexpected catch ()e e",
+        desc: `shdfshfd
+VM1011:1 Uncaught ReferenceError: shdfshfd is not defined
+    at <anonymous>:1:1
+(anonymous) @ VM1011:1
+h gkgsl; function fgasd
+VM1053:1 Uncaught SyntaxError: Unexpected identifier 'gkgsl'
+gsad
+VM1057:1 Uncaught ReferenceError: gsad is not defined
+    at <anonymous>:1:1
+(anonymous) @ VM1057:1
+g
+VM1063:1 Uncaught ReferenceError: g is not defined
+    at <anonymous>:1:1
+(anonymous) @ VM1063:1
+function expteted(){
+    readlallla kjfjsd;lafs'dgflds;f gj' slkjiu@()@)_(@_;;; <<,d,af,f.dsfa
+}
+VM1166:2 Uncaught SyntaxError: Unexpected identifier 'kjfjsd'
+dfggsdfgsdgdsfdfs
+VM1192:1 Uncaught ReferenceError: dfggsdfgsdgdsfdfs is not defined
+    at <anonymous>:1:1`,
+        img: "https://i.ebayimg.com/images/g/iUMAAOSwvtlne07Y/s-l1600.jpg",
+        price: 1500, power: 300, bonus: 4320, count: 0, aps: 5120,
+        type: 'item', rarity: 'rare', category: 'disc',
+        increment: 5, limit: 20, requires: 'lp'
+    },
 
 
 };
@@ -260,6 +325,11 @@ export const achvs = {
     WinVista: { img: "https://windows-office.ru/upload/iblock/248/2482e2dd06fa6a320e1436ea52fff1c6.jpg", name: "ВИНДА ВИСТА!!!!!", desc: "УРА ТЕПЕРЬ МОЙ КОМПЬЮТЕР ПОДТВЕРЖДЕН", goal: 1, type: 'item', itemId: 'WVL', done: false },
     Win7: { img: "https://i.yavitrina.ru/get-marketpic/169660/market_sSKgDLUe24rhFVE2OU-yeQ/200x200", name: "ВИНДА 7!!!!!", desc: "УРА ТЕПЕРЬ МОЙ КОМПЬЮТЕР ПОДТВЕРЖДЕН", goal: 1, type: 'item', itemId: 'W7L', done: false },
     XboxCollector: { img: "UpgradesPhotos/xbox360.jpg", name: "КОРОБКА ИКС 360!", desc: "Ееееееееееееее", goal: 1, type: 'item', itemId: 'X360', done: false },
+    H4TROLL: { img: "https://www.shutterstock.com/ru/image-vector/emoticon-laughing-wiping-tears-away-while-564985714", name: "Ахахахахах че нет нормальных игр да", desc: "ащзщпвахызвапзщшав ну вот твои 434 индастриес авапзхщахрзпвщхр", goal: 1, type: 'item', itemId: 'h4', done: false },
+    H3TROLL: { img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSs3ruIbwIyJpYa21gSLkHJUlRZkNU1b3DM_g&s", name: "Не понял откуда это", desc: "С;КА!!!!!!!", goal: 1, type: 'item', itemId: 'h3', done: false },
+    H3TROLL2: { img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEor-QH638PovkgOyGaSGjK-4-zNzH2_VyYA&s", name: "па ПАПАПАЦАН ОСТАНОВИСЬ АЛО", desc: "ЭТОГО НЕ ДОЛЖНО БЫТЬ!!!", goal: 15, type: 'item', itemId: 'h3', done: false },
+    BUGACH: { img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEor-QH638PovkgOyGaSGjK-4-zNzH2_VyYA&s", name: "Если вы видете эту ачивку", desc: "То это баг", goal: 20, type: 'item', itemId: 'CHEAT', done: false },
+
     PS3Collector: { img: "UpgradesPhotos/ps3.jpg", name: "УРА ПС3 ПЛЕЙТСЕШЕЙН!!!!", desc: "Ееееееееееееее", goal: 1, type: 'item', itemId: 'PS3', done: false },
     ManyXbox: { img: "UpgradesPhotos/xbox360.jpg", name: "ББбброо?...", desc: "ну я конечно не гений но зач тебе стоко", goal: 50, type: 'item', itemId: 'X360', done: false },
     ManyPS3: { img: "UpgradesPhotos/ps3.jpg", name: "УРА ПС3 ПЛЕЙТСЕШЕЙН!!!! МНОГА ПЛЕЙСТЕЙШН!!!!", desc: "МНОГО ПЛЕЙСТЕШН НЕ БЫВАЕТ!!!!", goal: 50, type: 'item', itemId: 'PS3', done: false },
