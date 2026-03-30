@@ -18,6 +18,7 @@ const CategoryNames = {
     'sale': '🔥 АКЦИИ (ГОРБУШКА) 🔥' // Добавили нашу акцию!
 };
 
+
 function checkAchievements() {
     for (let id in achvs) {
         let ach = achvs[id];
@@ -133,6 +134,43 @@ function recalcTI() {
     SberBanks.totalitems = total
 }
 
+function recalcPowerBonus() {
+    let power = 1
+    let bonus = 1
+    let aps = 0 // Добавим и aps, раз уж пересчитываем
+
+    // Проверяем, что upgrades существует и это объект
+    if (!upgrades || typeof upgrades !== 'object') {
+        console.warn('upgrades не загружен, используем 0')
+        SberBanks.power = 1
+        SberBanks.bonus = 1
+        SberBanks.aps = 0
+        return
+    }
+
+    // Перебираем все апгрейды
+    for (let key in upgrades) {
+        const item = upgrades[key]
+
+        // Проверяем, что предмет куплен (count > 0)
+        const count = item.count || 0
+        if (count <= 0) continue
+
+        // Учитываем power, bonus, aps с учётом количества
+        power += (item.power || 0) * count
+        bonus += (item.bonus || 0) * count
+        aps += (item.aps || 0) * count
+    }
+
+    // Обновляем SberBanks
+    SberBanks.power = power
+    SberBanks.bonus = bonus
+    SberBanks.aps = aps
+
+    console.log(`Пересчитано: power=${power}, bonus=${bonus}, aps=${aps}`)
+}
+
+
 const sounds = {
     ach: new Audio('https://archive.org/download/win95sounds/tada.mp3'),
     buy: new Audio('https://github.com/losba78rf2/MYFUNNYWEBSITE/raw/refs/heads/main/roblox-cash-register.mp3'),
@@ -140,7 +178,9 @@ const sounds = {
     error: new Audio('https://archive.org/download/windows98microsoftplus-sounds/w98sounds/CHORD.mp3'),
     shimmer: new Audio('https://dn711100.ca.archive.org/0/items/Boot_Sounds_Compilation/Windows%2098%20-%20Boot.mp3'),
     longhorn: new Audio('https://dn710201.ca.archive.org/0/items/Microsoft_Windows-Longhorn-Reloaded-System-Sounds/Windows-Longhorn-Reloaded-sound-effects/longhorn_reloaded_%5Bwinsounds.com%5D_767/LHR%20Logon.mp3'),
-    vista: new Audio('https://archive.org/download/Boot_Sounds_Compilation/Windows%20Vista%20-%20Boot.mp3')
+    vista: new Audio('https://archive.org/download/Boot_Sounds_Compilation/Windows%20Vista%20-%20Boot.mp3'),
+    rington: new Audio('sounds/c55_asia.mp3')
+
 }
 
 function playsound(SName) { //SoundName
@@ -150,15 +190,13 @@ function playsound(SName) { //SoundName
     }
 }
 
+
 SberBanks.applyPlayerPosition();
 SberBanks.money = Number(localStorage.getItem(`${GAME_CONFIG.saveKey}_money`) || 0)
 SberBanks.power = Number(localStorage.getItem(`${GAME_CONFIG.saveKey}_power`) || 1)
 SberBanks.bonus = Number(localStorage.getItem(`${GAME_CONFIG.saveKey}_bonus`) || 1)
 SberBanks.aps = Number(localStorage.getItem(`${GAME_CONFIG.saveKey}_AutoMoneys`) || 0)
 SberBanks.totalitems = Number(localStorage.getItem(`${GAME_CONFIG.saveKey}_TotalItems`) || 0)
-
-
-
 
 
 setInterval(() => {
@@ -280,6 +318,8 @@ function renderShop() {
             showPlayer()
         }
     }
+
+
 }
 
 function checkWindaActivat() {
@@ -423,9 +463,11 @@ function buyItem(id) {
         item.price *= item.increment
         item.count++
         recalcTI()
+
         playsound('buy')
         localStorage.setItem(`${GAME_CONFIG.saveKey}_upgrades`, JSON.stringify(upgrades));
         renderShop()
+        recalcPowerBonus()
         checkAchievements()
     } else {
         playsound('error')
@@ -569,6 +611,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (clickbutton) {
         clickbutton.addEventListener('click', (e) => Click(e));
     }
+
+    if (document.getElementById('Wcall')) {
+        document.getElementById('Wcall').addEventListener('click', (e) => callW(e));
+    }
     // 4. АЧИВКИ ЗАКРЫТЬ
     const closebtn = document.getElementById('close-ach-btn')
     if (closebtn) {
@@ -690,21 +736,28 @@ document.addEventListener('keydown', (e) => {
         playsound('longhorn')
         playsound('vista')
         lhInterval = setInterval(() => {
-                counter.textContent = "КУЧА ФАК!!! дщтпрщкт"
+            counter.textContent = "КУЧА ФАК!!! дщтпрщкт"
         }, 100);
-        
+
         setTimeout(() => {
             document.body.style.filter = "hue-rotate(0deg) contrast(1)";
             console.log("Back to 2026...");
             LHMode = false
             clearInterval(lhInterval)
-        }, 10000); 
+        }, 10000);
         sequence = "";
     }
     // Очищаем строку, чтобы не копилась бесконечно
     if (sequence.length > 20) sequence = "";
 });
+//ОБРЕЗ ЕСЛИ СЛИШКОМ БОГАЧ СКА
+// if (SberBanks.bonus >= 900){
+//     SberBanks.bonus = SberBanks.bonus / 5
+// }
+
+
 
 
 StartRandTime()
 recalcTI()
+recalcPowerBonus()

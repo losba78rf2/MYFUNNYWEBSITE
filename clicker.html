@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clicker</title>
-    <link rel="stylesheet" href="dist/7.css">
+    <link rel="stylesheet" href="7.css/dist/7.css">
     <link rel="shortcut icon" href="UpgradesPhotos/wii-icon.png" type="image/png">
 </head>
 
@@ -69,6 +69,7 @@
                         </div>
                         <button id="ClickButton">Click</button>
                     </div>
+
                     <dialog id="helpel" style="background: none; border-width: 0px;">
                         <div class="window glass active" style="max-width: 300px">
                             <div class="title-bar">
@@ -82,6 +83,7 @@
                                 <p>Thanks for seeking for help! You can close this window using this reeeed buttony</p>
                                 <p>ОЧЕНЬ СЕКРЕТНАЯ РАЗРАБОТКА ПЕНТАГОНА</p>
                                 <button id="open-hall-btn" onclick="closemod('helpel')">залесть</button>
+                                <button style="opacity: 0.1; position: absolute; top: 20px;"><a href="callington.html">. бро нет давай без этого</a></button>
                             </div>
                         </div>
                     </dialog>
@@ -106,7 +108,7 @@
                             style="min-height: 450px;  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 10px;">
                             <h1 style="margin: 0 0 15px 0; width: 100%;">Твои безделушки, клоун</h1>
                             <p id="TotalXlam">Всего 93</p>
-<!-- style="margin-top: -21px;" -->
+                            <!-- style="margin-top: -21px;" -->
                             <select name="выбери вид" id="category-select"></select>
                             <div class="has-scrollbar" id="coll-cont" style="display: grid; 
                                     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
@@ -210,6 +212,10 @@
         function closemod(id) {
             document.getElementById(id).close()
         }
+
+
+
+       
 
     </script>
     <script type="module" src="core.js"></script>
