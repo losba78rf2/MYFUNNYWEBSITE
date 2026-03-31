@@ -20,8 +20,6 @@
 }
 
 .item-img {
-    /* width: 50%;
-    height: 50%; */
     object-fit: cover; 
     padding: 14px;
     box-sizing: border-box;
@@ -31,12 +29,11 @@
     position: absolute;
     top: 0;
     left: 0;
-    /* width: 100%; -- СТАРОЕ
-    height: 100%;  -- НУ ЕСЛИ ТЫ НЕ ПОНЯЛ ТО РИЛ СТАРОЕ */ 
     pointer-events: none; /* Чтобы рамка не мешала кликать на фото */
     z-index: 2; 
     filter: hue-rotate(3478609deg) contrast(1.4);
 }
+
 #coll-cont div:hover {
     background: rgba(0, 162, 255, 0.1);
     outline: 1px solid rgba(0, 162, 255, 0.3);
@@ -55,7 +52,6 @@
     animation: rippleEffect 0.6s ease-out forwards;
 }
 
-
 .not-genuine {
     background: #000 !important; /* Тот самый чёрный экран смерти АЗЗХААХАХА КАКОЙ СМЕРТИ ВООБЗЕТО НЕЛЕГЕТИМНОЙ ФИГНИ ВИНДЫ */
     transition: all 1s ease-in;
@@ -68,7 +64,7 @@
     color: rgba(255, 255, 255, 0.7);
     font-family: 'Segoe UI', sans-serif;
     text-align: right;
-    pointer-events: none; /* Чтобы не мешало кликать */
+    pointer-events: none;
     z-index: 9999;
     background: #00000031;
 }
@@ -78,33 +74,75 @@
     100% { transform: scale(15); opacity: 0; }
 }
 
-/* Базовый стиль для магазина (для десктопа и больших экранов) */
+/* Базовый стиль для магазина и коллекции */
 #shop-cont, #coll-cont {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 15px;
-    height: 550px; /* На компе можно и побольше */
-    overflow-y: visible;
+    height: 550px;
+    overflow-y: auto;
     overflow-x: hidden;
     width: 100%;
     box-sizing: border-box;
     padding-bottom: 20px;
-    
 }
 
-/* А ТЕПЕРЬ МАГИЯ ДЛЯ МОБИЛОК (Айфонов и прочих) */
-@media (max-height: 700px) { 
-    /* Если экран низкий (как на iPhone SE) */
+/* А ТЕПЕРЬ ДЛЯ МОБИЛОК (Айфонов и прочих) — УМНЫЕ АДАПТИВНЫЕ ПРАВИЛА */
+
+/* Очень маленькие экраны (iPhone SE, старые Android) */
+@media (max-height: 600px) and (max-width: 400px) {
     #shop-cont, #coll-cont {
-        height: 45vh; /* Делаем окошко магазина поменьше */
-        padding-bottom: 50px; /* Огромный запас, чтобы кнопки вылезли над плеером */
+        height: calc(100dvh - 280px);
+        padding-bottom: 30px;
+    }
+
+    #pane-shop, #pane-collection {
+        min-height: 280px;
+    }
+
+    #TotalXlam, #category-select {
+        font-size: 0.9rem;
     }
 }
 
-@media (min-height: 701px) and (max-height: 900px) {
-    /* Для средних и больших айфонов (12 Pro, 15 и т.д.) */
+/* Маленькие экраны по высоте (iPhone 12 mini, SE и т.п.) */
+@media (min-height: 601px) and (max-height: 700px) {
     #shop-cont, #coll-cont {
-        height: 60vh; 
-        padding-bottom: 60px;
+        height: calc(100dvh - 300px);
+        padding-bottom: 40px;
+    }
+}
+
+/* Средние экраны (большинство смартфонов) */
+@media (min-height: 701px) and (max-height: 900px) {
+    #shop-cont, #coll-cont {
+        height: calc(100dvh - 320px);
+        padding-bottom: 50px;
+    }
+}
+
+/* На экранах поменьше по ширине (планшеты в портрете, смартфоны) */
+@media (max-width: 768px) {
+    .tabs {
+        margin-top: 15px;
+    }
+
+    [role="tabpanel"] {
+        min-height: 320px;
+    }
+
+    h1 {
+        font-size: 1.1rem;
+        margin-bottom: 12px;
+    }
+
+    #TotalXlam {
+        margin-top: 0;
+        font-size: 0.95rem;
+    }
+
+    #category-select {
+        font-size: 0.9rem;
+        padding: 6px;
     }
 }
