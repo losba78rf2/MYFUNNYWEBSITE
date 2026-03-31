@@ -1,6 +1,6 @@
 import { upgrades, achvs, GAME_CONFIG } from './config.js';
 import { activateBuff, activeBuffs, updateIncome, buffs } from './buffs.js'
-
+loadAchievements()
 let savedUpgrades = localStorage.getItem(`${GAME_CONFIG.saveKey}_upgrades`);
 const counter = document.getElementById("count")
 const clickbutton = document.getElementById("ClickButton")
@@ -59,6 +59,12 @@ function checkAchievements() {
         }
         if (ach.type === 'totalItems') {
             if (SberBanks.totalitems >= ach.goal) {
+                reached = true
+            }
+        }
+
+        if (ach.type === 'level') {
+            if (SberBanks.level >= ach.goal){
                 reached = true
             }
         }
@@ -591,6 +597,8 @@ function renderACHVS() {
                 goal = "Получите " + targetItem.name
             } else if (item.type === 'item' && targetItem) {
                 goal = "Получите " + item.goal + ' штук ' + targetItem.name
+            } else if (item.type === 'level') {
+                goal = `Добейтесь ` + item.goal +` уровня!`
             }
         }
         achvs_shelf.innerHTML += `
@@ -879,10 +887,21 @@ function OldPlayerGiveXP() {
     console.log(`[OldPlayerGiveXP] С;ка твои нищие ${totalXP} XP стоили мне утро. Мразь ты`);
 }
 
+function loadAchievements() {
+    const saved = localStorage.getItem(`${GAME_CONFIG.saveKey}_achievements`);
+    if (saved) {
+        const savedAchvs = JSON.parse(saved);
+        for (let id in savedAchvs) {
+            if (achvs[id]) {
+                achvs[id].done = savedAchvs[id].done;
+            }
+        }
+    }
+}
 
 // Основная инициализация при загрузке страницы
 document.addEventListener('DOMContentLoaded', () => {
-
+    
     // 1. ИНИЦИАЛИЗАЦИЯ ТАБОВ (по канону 7.css)
     const tabList = document.querySelector("[aria-label='Shop Tabs']");
     if (tabList) {

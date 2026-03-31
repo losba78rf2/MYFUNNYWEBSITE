@@ -425,7 +425,44 @@ export const upgrades = {
         initialPrice: 15000
     },
 
+    
+    PS2ET: {
+        name: "PS2 Eye Toy",
+        desc: "ОЧЕНЬ ПРОРЫВНАЯ ТЕХНОЛОГИЯ!!! ДАЖЕ У КОНКУРЕНТОВ МЯГКОМЯГКИХ МИКРО БУДЕТ ТОЛЬКО ПООТМО!!! А У НАС УЖЕ СЕЙЧАС!!!!!!!",
+        img: "https://avatars.mds.yandex.net/get-mpic/1620389/img_id5248087576272935428.jpeg/orig",
+        price: 12000,
+        power: 4,
+        bonus: 4,
+        count: 0,
+        aps: 2,
+        type: 'item',
+        rarity: 'rare',
+        category: 'key',
+        increment: 1.15,
+        limit: 250,
+        requires: { level: 0, item: 'PS2' },
+        initialPrice: 12000
+    },
 
+    PS3ET: {
+        name: "PS3 Eye камера!!!!",
+        desc: "ДА!!!",
+        img: "https://avatars.mds.yandex.net/get-mpic/11396163/2a0000018c1bf38649b9a5174450bf3f4ec0/orig",
+        price: 10000,
+        power: 5,
+        bonus: 4,
+        count: 0,
+        aps: 2,
+        type: 'item',
+        rarity: 'rare',
+        category: 'key',
+        increment: 1.2,
+        limit: 25,
+        requires: { level: 0, item: 'PS2' },
+        initialPrice: 10000
+    },
+
+//wii
     NDSRP: {
         name: "Nintendo DS Rumble Pak",
         desc: "Картридж-вибратор, который вставляется в слот для GBA и просто жужжит в руках во время игры.",
@@ -482,8 +519,8 @@ export const upgrades = {
         desc: "не пон откуда оно тут",
         img: "https://avatars.mds.yandex.net/i?id=8d311cbd3c7203ef223325401e649f3e_l-4961046-images-thumbs&n=13",
         price: 4500,
-        power: 24,
-        bonus: 28,
+        power: 4,
+        bonus: 8,
         count: 0,
         aps: 5,
         type: 'item',
@@ -582,6 +619,8 @@ export const achvs = {
     TooManyPSPFilms: { img: "https://meshok.net/i/289409220.0.208x208.jpg", name: "ЭТОТ ФИЛЬМ ПРОСТО ИМБА!!!", desc: "И Я РЕШИЛ ЕГО ПОЛНОСТЬЮ СКУПИТЬ ЧЕРТ ВОЗЬМИ!!!", goal: 500, type: 'item', itemId: 'PSPCHP2', done: false },
     TooManyPSPTulpans: { img: "https://main-cdn.sbermegamarket.ru/big1/hlr-system/-10/501/636/711/010/111/600022032099b0.jpg", name: "МНОГО ТЮЛЬПАНОВ ВООБЩЕ НЕ БЫВАЕТ БЛ!", desc: "БЕСКОНЕЧНРСИТЬ НЕ ПРЕДЕЛ!!!!!!!!", goal: 500, type: 'item', itemId: 'PSPTUL', done: false },
     TooManyPSPTulpans2: { img: "https://main-cdn.sbermegamarket.ru/big1/hlr-system/-10/501/636/711/010/111/600022032099b0.jpg", name: "...Или предел...", desc: "Ха-Ха! Разработчик просто гений🤣😅😭😎🤣✅🥂🍻💀💀💪🕊️❤️‍🩹🤣😎😎🤣😅😅😭 МЕГА УЛЬТРА КРУТОЙ ТРОЛЛЬ АХАХАХАХАХ", goal: 501, type: 'item', itemId: 'PSPTUL', done: false },
+
+    LevelUp1: { img: "https://media.tenor.com/C_F1w2hD3cAAAAAM/level-up-flexing.gif", name: "Оу е обновочка летс гоооу", desc: "ЭЙ Я БУДТО МАРИО КОГДА ГРИБОЧЕК СКУШАЛ +1 АП !!!", goal: 1, type: 'level', itemId: ' /', done: false },
 
     Allitems_93: { img: "https://media.istockphoto.com/id/1200604891/ru/%D1%84%D0%BE%D1%82%D0%BE/%D0%BD%D0%BE%D0%BC%D0%B5%D1%80-93-3d.jpg?s=170x170&k=20&c=m7aGEweZ2R8sf7Ek7E3KjJW3DJ6ZNm7Y3jEp30m00kI=", name: "93!", desc: "93 ПРЕДМЕТА ЕСТЬ!", goal: 93, type: 'totalItems', itemId: 'ПРЕДМЕТА ЗАРАБОТАНО ЛЕТС ГОООООУ КРАСАВА', done: false },
     Allitems_100: { img: "https://color-time.ru/thumb/2/AutsnaJRFwRMpgMuAHYkZQ/180r160/d/igrushka_antistress_smayl-magnatmini_1.jpg", name: "Реальный магнат!", desc: "СОТОЧКА!", goal: 100, type: 'totalItems', itemId: 'ВСЕГО ВЕЩЕЙ!!', done: false },
