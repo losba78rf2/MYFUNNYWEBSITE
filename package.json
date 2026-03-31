@@ -11,6 +11,7 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
-    "7.css": "^0.21.1"
+    "7.css": "^0.21.1",
+    "amplitudejs": "^5.3.2"
   }
 }

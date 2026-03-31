@@ -238,7 +238,7 @@ const SberBanks = {
     applyPlayerPosition() {
         const mp3 = document.getElementById("playerwind");
         if (!mp3) return;
-        mp3.style.bottom = this._mp3Collapsed ? "-450px" : "0px";
+        mp3.style.bottom = this._mp3Collapsed ? "-10px" : "0px";
     },
 
     get totalitems() {
@@ -712,7 +712,7 @@ function Minimize_window() {
     const player = document.getElementById("playerwind")
 
     if (isMinimezed == false) {
-        player.style.bottom = "-450px"
+        player.style.bottom = "-100px"
         isMinimezed = true
         localStorage.setItem(`${GAME_CONFIG.saveKey}_mp3Collapsed`, isMinimezed)
     } else {
@@ -725,7 +725,7 @@ function Minimize_window() {
 window.onload = function () {
     const player = document.getElementById("playerwind");
     if (isMinimezed) {
-        player.style.bottom = "-450px";
+        player.style.bottom = "-100px";
     } else {
         player.style.bottom = "0px";
     }
