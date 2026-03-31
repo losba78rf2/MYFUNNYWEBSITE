@@ -79,4 +79,37 @@ function callW() {
         }, 3000)
         alert("🌐 W: «...»\n\n(Ты почувствовал, как реальность дрогнула.)")
     }
+
+    if (wCallCount === 56) {
+        document.body.style.filter = 'hue-rotate(920deg)'
+        setTimeout(() => {
+            document.body.style.filter = ''
+        }, 3000)
+        alert("🌐 W: «Бл№№№№ ты реально даун? Я тебе на автоответчике сказал не звонить с№ка тупой бл;;;; дь ьпьалдаывлдаьыфдва НЕ ЗВОНИ БОЛЬШЕ БЛ№№№№№№№»\n\n(Ты почувствовал, что ты реально тупой тупорылый")
+    }
+
+    if (wCallCount === 57) {
+        document.body.style.filter = 'hue-rotate(920deg)'
+        setTimeout(() => {
+            document.body.style.filter = ''
+        }, 3000)
+        alert("Я ббл№№;№№№ уже дальше писать не собираюсь, это реально все, я врать не буду")
+    }
+
+
+    if (wCallCount === 59) {
+        document.body.style.filter = 'hue-rotate(920deg)'
+        setTimeout(() => {
+            document.body.style.filter = ''
+        }, 3000)
+        alert("Ты мне не веришь? Ублюдок.")
+    }
+    if (wCallCount === 60) {
+        document.body.style.filter = 'hue-rotate(920deg)'
+        setTimeout(() => {
+            document.body.style.filter = ''
+        }, 3000)
+        alert("Ты внатуре издеваешься")
+    }
+
 }

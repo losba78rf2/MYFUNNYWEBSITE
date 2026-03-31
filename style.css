@@ -2,6 +2,8 @@
 
 * {
     -webkit-overflow-scrolling: touch;
+    -webkit-backdrop-filter: blur(0px);
+    backdrop-filter: blur(0px);
 }
 
 .vista-avatar {

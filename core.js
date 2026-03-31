@@ -79,9 +79,9 @@ const SberBanks = {
     _bonus: 1,
     _aps: 0,
     _xp: 0,
-    _level: 1,
+    _level: 0,
     _xpNext: 100,
-    _powerMultLevel: 1,
+    _powerMultLevel: 0.5,
     _mp3Collapsed: localStorage.getItem(`${GAME_CONFIG.saveKey}_mp3Collapsed`) === 'true',
     _totalitems: 0,
 
@@ -109,10 +109,16 @@ const SberBanks = {
         return this._level
     },
     set level(vl) {
+        const newLevel = Math.max(1, Math.floor(vl));
         this._level = Math.max(1, Math.floor(vl));
         localStorage.setItem(`${GAME_CONFIG.saveKey}_level`, this._level);
+
+        const old_level = this._level
+        this._level = newLevel;
         this.updateLevelDisplay();
-        this.onLevelUp();
+        if (old_level >= 1 && old_level < newLevel) {
+            this.onLevelUp();
+        }
     },
 
     get xpNext() {
@@ -169,7 +175,7 @@ const SberBanks = {
 
         this.xp = parseInt(localStorage.getItem(`${GAME_CONFIG.saveKey}_xp`)) || 0;
         this.level = parseInt(localStorage.getItem(`${GAME_CONFIG.saveKey}_level`)) || 1;
-        this.xpNext = this.calcXpForNext(this._level);
+        this.xpNext = this.calcXpForNext(this.level);
         this.powerMultLevel = parseInt(localStorage.getItem(`${GAME_CONFIG.saveKey}_PowerLevelMult`)) || 1;
         this.updateLevelDisplay();
     },
@@ -317,11 +323,11 @@ SberBanks.totalitems = Number(localStorage.getItem(`${GAME_CONFIG.saveKey}_Total
 
 
 setInterval(() => {
-    if (SberBanks.aps > 3) {
-        SberBanks.money += Number(SberBanks.aps) * (Number(SberBanks.power) * Number(SberBanks.bonus))
-    } else if (SberBanks.aps > 0) {
-        SberBanks.money += Number(SberBanks.aps)
-    }
+    // if (SberBanks.aps > 3) {
+    //     SberBanks.money += Number(SberBanks.aps) * (Number(SberBanks.power) * Number(SberBanks.bonus))
+    // } else if (SberBanks.aps > 0) {
+    SberBanks.money += Number(SberBanks.aps)
+    //}
 }, 1000);
 
 
@@ -421,6 +427,7 @@ function renderShop() {
                 </div>
             </div>
             `
+
             newElement = coll_conatiner.lastElementChild
             newElement.addEventListener('mouseenter', () => {
                 let soundTimer = setTimeout(() => {
@@ -461,6 +468,12 @@ function renderShop() {
             showPlayer()
         }
     }
+    shop_container.innerHTML += `
+    <div style="margin-bottom: 100px;"></div>
+    `
+    coll_conatiner.innerHTML += `
+    <div style="margin-bottom: 100px;"></div>
+    `
     console.log("%cАЛЁ! ТЫ ЗАЧЕМ СЮДА ЗАЛЕЗ?! ХОЧЕШЬ FAC НАКРУТИТЬ? Я ВСЁ ВИЖУ! \nGET OUT! GET THE FUCK OUT!!!! haha!", "color: red; font-size: 20px; background: yellow;");
 }
 function renderBuffs() {
