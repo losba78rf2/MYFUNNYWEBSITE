@@ -139,6 +139,7 @@
         </div>
     </div>
     </div>
+
     <div class="background">
         <div id="playerwind" class="window glass active"
             style="display: none; transition: all 1.2s cubic-bezier(0.075, 0.82, 0.165, 1); max-width: 100%; position: fixed; bottom: 0px; right: 20px; z-index: 9999;">
@@ -148,17 +149,19 @@
                     <!-- <button id="radio-prev" aria-label="">
                         < </button>
                             <button id="radio-next" aria-label=" ">></button> -->
-                            <button aria-label="Minimize" id="Minimize_player"></button>
+                    <button aria-label="Minimize" id="Minimize_player"></button>
                 </div>
             </div>
-            <div class="window-body has-space">
+
+            <div class="window-body has-space"
+                style="background: url('https://i.pinimg.com/originals/41/31/b6/4131b66d686967169d7657c942170e55.jpg') center;">
                 <div id="player-widget">
                     <!-- СУКИ БЛ::: ЗАБЛОКИРОВАЛИ САУНДКЛАУД -->
                     <!-- <iframe title="music_player_you_bought" width="100%" height="450" scrolling="no" frameborder="no"
                         allow="autoplay"
                         src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/soundcloud%253Aplaylists%253A1788413202&color=%2370b3b6&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true">
                     </iframe> -->
-                    <div style="margin-bottom: 10px;">
+                    <!-- <div style="margin-bottom: 10px;">
                         <b data-amplitude-song-info="name">Loading...</b><br>
                         <small data-amplitude-song-info="artist">gff</small>
                     </div>
@@ -170,7 +173,40 @@
                         <button class="amplitude-prev">⏮</button>
                         <button class="amplitude-play-pause">Pley или paus</button>
                         <button class="amplitude-next">⏭</button>
-                    </section>
+                    </section> -->
+                    <div class="frutiger-player-container" style="
+                        position: relative; 
+                        width: 320px; 
+                        height: 180px; 
+                        background: url('PngsBackgrounds/FRUTPLAYER.png') no-repeat center; 
+                        background-size: cover;
+                        user-select: none;
+                        ">
+                        <div
+                            style="position: absolute; top: 45px; left: 95px; width: 130px; height: 60px; overflow: hidden; color: #ffffff; font-family: sans-serif; font-size: 10px; text-align: center; pointer-events: none; font-family:monospace;">
+                            <div data-amplitude-song-info="name"
+                                style="font-weight: bold; margin-top: 10px; font-weight: 0;">Loading...
+                            </div>
+                            <div data-amplitude-song-info="artist" style="opacity: 0.8; font-weight: 0;">gff</div>
+                        </div>
+                        <button class="amplitude-play-pause" title="Играть/Паузить"
+                            style="position: absolute; top: 58px; left: 17px; width: 32px; height: 32px; border-radius: 50%; border: none; background: transparent; cursor: pointer; opacity: 0;"></button>
+
+                        <button class="amplitude-next" title="Следующее"
+                            style="position: absolute; top: 87px; left: 22px; width: 28px; height: 28px; border-radius: 50%; border: none; background: transparent; cursor: pointer; opacity: 0;"></button>
+
+                        <input type="range" class="amplitude-song-slider" step="0.1"
+                            style="position: absolute; width: 50%; margin-bottom: 10px; top: 90%; opacity: 0.2;">
+
+                        <button class="amplitude-prev" title="Назад!!!"
+                            style="position: absolute; top: 110px; left: 38px; width: 28px; height: 28px; border-radius: 50%; border: none; background: transparent; cursor: pointer; opacity:0;"></button>
+
+                        <button class="amplitude-volume-up" title="Громкость вверх"
+                            style="position: absolute; top: 60px; right: 18px; width: 25px; height: 25px; border: none; background: transparent; cursor: pointer; opacity: 0;"></button>
+                        <button class="amplitude-volume-down" title="Громкость вниз"
+                            style="position: absolute; top: 87px; right: 18px; width: 25px; height: 25px; border: none; background: transparent; cursor: pointer; opacity: 0;"></button>
+
+                    </div>
 
 
                 </div>
@@ -253,12 +289,47 @@
     <script type="module" src="buffs.js"></script>
     <script type="text/javascript" src="amplitudejs/dist/amplitude.js"></script>
     <script type="text/javascript">
-    Amplitude.init({
+
+        /*
+                    songs: [
+                        {
+                            "name": 'Полный бак (ТАК КАК САУНДКЛАУДА НЕТ)',
+                            "artist": "Бустеренко бустрер слава",
+                            "url": "music/buster.mp3",
+                            "cover_art_url": ""
+                        },
+                        {
+                            "name": 'Полный REMIX',
+                            "artist": "Losba!",
+                            "url": "music/Project_16v3.mp3",
+                            "cover_art_url": ""
+                        },
+                        {
+                            "name": 'Skrillex pesnya',
+                            "artist": "Потом будут норм треки честно!",
+                            "url": "music/skrill.mp3",
+                            "cover_art_url": ""
+                        },
+                        {
+                            "name": 'Простите меня за это',
+                            "artist": "Почему вообще это здесь?!!! зачем я это скачивал??",
+                            "url": "music/67.mp3",
+                            "cover_art_url": ""
+                        }
+                    ] */
+
+        Amplitude.init({
             songs: [
                 {
                     "name": 'Полный бак (ТАК КАК САУНДКЛАУДА НЕТ)',
                     "artist": "Бустеренко бустрер слава",
                     "url": "music/buster.mp3",
+                    "cover_art_url": ""
+                },
+                {
+                    "name": 'Полный REMIX',
+                    "artist": "Losba!",
+                    "url": "music/Project_16v3.mp3",
                     "cover_art_url": ""
                 },
                 {

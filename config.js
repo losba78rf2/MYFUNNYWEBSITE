@@ -620,7 +620,7 @@ export const achvs = {
     TooManyPSPTulpans: { img: "https://main-cdn.sbermegamarket.ru/big1/hlr-system/-10/501/636/711/010/111/600022032099b0.jpg", name: "МНОГО ТЮЛЬПАНОВ ВООБЩЕ НЕ БЫВАЕТ БЛ!", desc: "БЕСКОНЕЧНРСИТЬ НЕ ПРЕДЕЛ!!!!!!!!", goal: 500, type: 'item', itemId: 'PSPTUL', done: false },
     TooManyPSPTulpans2: { img: "https://main-cdn.sbermegamarket.ru/big1/hlr-system/-10/501/636/711/010/111/600022032099b0.jpg", name: "...Или предел...", desc: "Ха-Ха! Разработчик просто гений🤣😅😭😎🤣✅🥂🍻💀💀💪🕊️❤️‍🩹🤣😎😎🤣😅😅😭 МЕГА УЛЬТРА КРУТОЙ ТРОЛЛЬ АХАХАХАХАХ", goal: 501, type: 'item', itemId: 'PSPTUL', done: false },
 
-    LevelUp1: { img: "https://media.tenor.com/C_F1w2hD3cAAAAAM/level-up-flexing.gif", name: "Оу е обновочка летс гоооу", desc: "ЭЙ Я БУДТО МАРИО КОГДА ГРИБОЧЕК СКУШАЛ +1 АП !!!", goal: 1, type: 'level', itemId: ' /', done: false },
+    LevelUp1: { img: "https://media.tenor.com/C_F1w2hD3cAAAAAM/level-up-flexing.gif", name: "Оу е обновочка летс гоооу", desc: "ЭЙ Я БУДТО МАРИО КОГДА ГРИБОЧЕК СКУШАЛ +1 АП !!!", goal: 2, type: 'level', itemId: ' /', done: false },
 
     Allitems_93: { img: "https://media.istockphoto.com/id/1200604891/ru/%D1%84%D0%BE%D1%82%D0%BE/%D0%BD%D0%BE%D0%BC%D0%B5%D1%80-93-3d.jpg?s=170x170&k=20&c=m7aGEweZ2R8sf7Ek7E3KjJW3DJ6ZNm7Y3jEp30m00kI=", name: "93!", desc: "93 ПРЕДМЕТА ЕСТЬ!", goal: 93, type: 'totalItems', itemId: 'ПРЕДМЕТА ЗАРАБОТАНО ЛЕТС ГОООООУ КРАСАВА', done: false },
     Allitems_100: { img: "https://color-time.ru/thumb/2/AutsnaJRFwRMpgMuAHYkZQ/180r160/d/igrushka_antistress_smayl-magnatmini_1.jpg", name: "Реальный магнат!", desc: "СОТОЧКА!", goal: 100, type: 'totalItems', itemId: 'ВСЕГО ВЕЩЕЙ!!', done: false },
