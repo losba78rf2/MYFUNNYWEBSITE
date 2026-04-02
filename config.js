@@ -439,7 +439,7 @@ export const upgrades = {
         rarity: 'rare',
         category: 'key',
         increment: 1.15,
-        limit: 250,
+        limit: 25,
         requires: { level: 0, item: 'PS2' },
         initialPrice: 12000
     },

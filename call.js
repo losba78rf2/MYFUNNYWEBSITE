@@ -111,5 +111,13 @@ function callW() {
         }, 3000)
         alert("Ты внатуре издеваешься")
     }
+    if (wCallCount === 61) {
+        document.body.style.filter = 'hue-rotate(920deg)'
+        setTimeout(() => {
+            document.body.style.filter = ''
+        }, 3000)
+        alert("Конец. Ты просто зря кликал 61 раз. Здесь нет сюжеток и загадок. Я серьезно..")
+        document.getElementById('Wcall').remove()
+    }
 
 }

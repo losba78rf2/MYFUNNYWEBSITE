@@ -35,7 +35,7 @@ export const buffs = {
         name : 'Feel the rubmle!',
         icon : 'https://nextgame.net/upload/dev2fun.imagecompress/webp/iblock/03b/aksessuary-ustroystvo-rumble-pak-dlya-ds-lite-dsl-for-nintendo-ds.webp',
         duration : 15000, powermult: 1.5, 
-        requires: null,
+        requires: 'NDSRP',
         incomemult: 1.5,
         bonus: 1,
         aps: 0,
