@@ -1,5 +1,6 @@
 import { upgrades, achvs, GAME_CONFIG } from './config.js';
 import { activateBuff, activeBuffs, updateIncome, buffs } from './buffs.js'
+import { albums as ALBUMS, updateAlbumSelect } from './music.js'
 loadAchievements()
 let savedUpgrades = localStorage.getItem(`${GAME_CONFIG.saveKey}_upgrades`);
 const counter = document.getElementById("count")
@@ -16,6 +17,7 @@ const CategoryNames = {
     'disc': 'Диски',
     'strengther': 'Бустеры',
     'software': 'Софт',
+    'music': 'Музыка',
     'sale': '🔥 АКЦИИ (ГОРБУШКА) 🔥'
 };
 
@@ -634,12 +636,18 @@ function buyItem(id) {
         SberBanks.addXp(Math.floor(Math.log(item.price) * 10))
         item.price *= item.increment
         item.count++
+        if (item.category === 'music' && item.album_id){
+            updateAlbumSelect()
+            console.log("yeseyesyes")
+        }
         recalcTI()
         playsound('buy')
-        localStorage.setItem(`${GAME_CONFIG.saveKey}_upgrades`, JSON.stringify(upgrades));
+        
         renderShop()
         recalcPowerBonus()
         checkAchievements()
+
+        localStorage.setItem(`${GAME_CONFIG.saveKey}_upgrades`, JSON.stringify(upgrades));
     } else {
         playsound('error')
     }

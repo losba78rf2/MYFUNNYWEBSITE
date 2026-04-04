@@ -585,8 +585,47 @@ export const upgrades = {
         limit: 3,
         requires: { level: 20, item: 'CHEAT' },
         initialPrice: 750000
-    }
+    },
 
+    album_pack13: {
+        name: "Music Pack 1",
+        desc: "Набор хорошей хорошей музычки! (В РАЗРАБОТКЕ!)",
+        img: "https://i.ytimg.com/vi/MY_B_4zMusU/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGBYgOih_MA8=&amp;rs=AOn4CLB9INB5VZFgA1ZlsGnbgk3y3Fv4jA",
+        price: 4500,
+        power: 4,
+        bonus: 8,
+        count: 0,
+        aps: 5,
+        type: 'item',
+        rarity: 'rare',
+        category: 'music',
+        increment: 1.15,
+        limit: 1,
+        requires: { level: 0, item: 'mp3player' },
+        initialPrice: 4500,
+
+        album_id: 'pack1'
+    },
+
+    album_pack21: {
+        name: "Music Pack 2",
+        desc: "Набор хорошей хорошей музычки! (В РАЗРАБОТКЕ!)",
+        img: "https://i.ytimg.com/vi/MY_B_4zMusU/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGBYgOih_MA8=&amp;rs=AOn4CLB9INB5VZFgA1ZlsGnbgk3y3Fv4jA",
+        price: 4500,
+        power: 4,
+        bonus: 8,
+        count: 0,
+        aps: 5,
+        type: 'item',
+        rarity: 'rare',
+        category: 'music',
+        increment: 1.15,
+        limit: 1,
+        requires: { level: 0, item: 'mp3player' },
+        initialPrice: 4500,
+
+        album_id: 'pack2'
+    },
 };
 
 export const achvs = {

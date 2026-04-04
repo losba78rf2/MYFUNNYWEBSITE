@@ -9,15 +9,20 @@
     <link rel="shortcut icon" href="UpgradesPhotos/wii-icon.png" type="image/png">
 </head>
 
-<body style="overflow-x: hidden; overflow-y: hidden; ">
+<body>
+    <video autoplay muted loop playsinline id="bg-video">
+        <source src="video/SKY_BG.webm" type="video/webm">
+    </video>
+    
     <div class="background">
-        <div class="window glass active" style="max-width: 900%;">
+        <div class="window glass active" style="max-width: 900%;" id="MainWindowReal">
             <div class="title-bar">
                 <div class="title-bar-text"><img src="coffee_cup.webp" alt=""
                         style="height: 12px; pointer-events: none;">Home
                     Page Yooo Wleocm</div>
                 <div class="title-bar-controls">
                     <button aria-label="Help" onclick="showhelp()"></button>
+                    <button aria-label="Minimize" onclick="minimizeMain()"></button>
                 </div>
             </div>
             <div class="window-body has-space">
@@ -90,7 +95,7 @@
                                 <p>So helpful!</p>
                                 <p>Thanks for seeking for help! You can close this window using this reeeed buttony</p>
                                 <p>ОЧЕНЬ СЕКРЕТНАЯ РАЗРАБОТКА ПЕНТАГОНА</p>
-                                <button id="open-hall-btn" onclick="closemod('helpel')">залесть</button>
+                                <button id="open-hall-btn" onclick="closemod('helpel'); minimizeMain(true);">залесть</button>
                                 <button style="opacity: 0.1; position: absolute; top: 20px;"><a href="callington.html">.
                                         бро нет давай без этого</a></button>
                             </div>
@@ -149,7 +154,11 @@
                     <!-- <button id="radio-prev" aria-label="">
                         < </button>
                             <button id="radio-next" aria-label=" ">></button> -->
+                    <select id="album-sel">
+                        <option value="">Выбери альбом</option>
+                    </select>
                     <button aria-label="Minimize" id="Minimize_player"></button>
+
                 </div>
             </div>
 
@@ -185,9 +194,10 @@
                         <div
                             style="position: absolute; top: 45px; left: 95px; width: 130px; height: 60px; overflow: hidden; color: #ffffff; font-family: sans-serif; font-size: 10px; text-align: center; pointer-events: none; font-family:monospace;">
                             <div data-amplitude-song-info="name"
-                                style="font-weight: bold; margin-top: 10px; font-weight: 0;">Loading...
+                                style="font-weight: bold; font-size: 10px; margin-top: 15px; font-weight: 0;">Ничего не играет
                             </div>
-                            <div data-amplitude-song-info="artist" style="opacity: 0.8; font-weight: 0;">gff</div>
+                            <div data-amplitude-song-info="artist" style="opacity: 0.8; font-weight: 0; margin-top: 4px;">Выбери альбом!
+                            </div>
                         </div>
                         <button class="amplitude-play-pause" title="Играть/Паузить"
                             style="position: absolute; top: 58px; left: 17px; width: 32px; height: 32px; border-radius: 50%; border: none; background: transparent; cursor: pointer; opacity: 0;"></button>
@@ -215,8 +225,8 @@
     </div>
 
     <div class="hall-of-achvs" id="hall-of-achvs"
-        style="background: url('https://images.hdqwalls.com/download/windows-vista-aurora-greeny-in-1336x768.jpg') center/cover; display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 99999; align-items: center; justify-content: center; animation: fadeIn 0.5s ease; flex-direction: column; ">
-
+        style="background-color: rgba(0, 0, 0, 0); display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 99999; align-items: center; justify-content: center; animation: fadeIn 0.5s ease; flex-direction: column; backdrop-filter: blur(5px); ">
+<!-- background: url('https://images.hdqwalls.com/download/windows-vista-aurora-greeny-in-1336x768.jpg') center/cover;  -->
         <button id="close-ach-btn" class="shopperbutton" style="
                 position: absolute; 
                 top: 20px; 
@@ -226,7 +236,7 @@
                 min-width: auto; 
                 z-index: 100000;
                 filter: hue-rotate(167deg);
-                opacity: 0.1;
+                /* opacity: 0.1; */
             ">
             X
         </button>
@@ -235,18 +245,18 @@
             О да, твои ачивочки</h1>
         <div id="achvs-grid" class="has-scrollbar" style="
     display: flex;
-    flex-direction: row; 
-    width: 95%; 
-    /* Горизонтальный скролл оставляем */
-    overflow-x: auto; 
-    /* ВАЖНО: Вместо hidden ставим visible, чтобы не резало верх/низ */
-    overflow-y: visible; 
-    padding: 40px 20px;
-    gap: 30px; 
-    align-items: center;
-    /* Высоту делаем минимальной, чтобы она могла расти */
-    min-height: 174px; 
-    background: linear-gradient(0deg, rgba(255,255,255,0.1) 24%, rgba(255,255,255,0.4) 53%, rgba(255,255,255,0.01) 55%);
+        flex-direction: row; 
+        width: 95%; 
+        /* Горизонтальный скролл оставляем */
+        overflow-x: auto; 
+        /* ВАЖНО: Вместо hidden ставим visible, чтобы не резало верх/низ */
+        overflow-y: visible; 
+        padding: 40px 20px;
+        gap: 30px; 
+        align-items: center;
+        /* Высоту делаем минимальной, чтобы она могла расти */
+        min-height: 174px; 
+        background: linear-gradient(0deg, rgba(255,255,255,0.1) 24%, rgba(255,255,255,0.4) 53%, rgba(255,255,255,0.01) 55%);
 ">
             ЗДЕСЬ КАРТНОНИКИ КАРТЧОКИ
         </div>
@@ -271,7 +281,7 @@
 
     <link rel="stylesheet" href="style.css">
     <script>
-
+        let isMini = false
         function showhelp() {
             document.getElementById("helpel").showModal()
         }
@@ -279,16 +289,32 @@
             document.getElementById(id).close()
         }
 
-
+        function minimizeMain(tt) {
+            if (tt != null){
+                if (tt === true){
+                    document.getElementById('MainWindowReal').style.marginTop = '80vh'
+                    isMini = true
+                }
+            } else {
+                if (isMini === false) {
+                    document.getElementById('MainWindowReal').style.marginTop = '80vh'
+                    isMini = true
+                } else {
+                    document.getElementById('MainWindowReal').style.marginTop = '0vh'
+                    isMini = false
+                }
+            }
+        }
 
 
 
     </script>
+    <script type="text/javascript" src="amplitudejs/dist/amplitude.js"></script>
+
     <script type="module" src="core.js"></script>
     <script type="module" src="config.js"></script>
     <script type="module" src="buffs.js"></script>
-    <script type="text/javascript" src="amplitudejs/dist/amplitude.js"></script>
-    <script type="text/javascript">
+    <script type="module" src="music.js">
 
         /*
                     songs: [
@@ -316,36 +342,7 @@
                             "url": "music/67.mp3",
                             "cover_art_url": ""
                         }
-                    ] */
-
-        Amplitude.init({
-            songs: [
-                {
-                    "name": 'Полный бак (ТАК КАК САУНДКЛАУДА НЕТ)',
-                    "artist": "Бустеренко бустрер слава",
-                    "url": "music/buster.mp3",
-                    "cover_art_url": ""
-                },
-                {
-                    "name": 'Полный REMIX',
-                    "artist": "Losba!",
-                    "url": "music/Project_16v3.mp3",
-                    "cover_art_url": ""
-                },
-                {
-                    "name": 'Skrillex pesnya',
-                    "artist": "Потом будут норм треки честно!",
-                    "url": "music/skrill.mp3",
-                    "cover_art_url": ""
-                },
-                {
-                    "name": 'Простите меня за это',
-                    "artist": "Почему вообще это здесь?!!! зачем я это скачивал??",
-                    "url": "music/67.mp3",
-                    "cover_art_url": ""
-                }
-            ]
-        })</script>
+                    ] */</script>
 </body>
 
 </html>
