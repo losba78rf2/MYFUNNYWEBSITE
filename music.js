@@ -35,8 +35,8 @@ export const albums = {
         img: 'img/cover.jpg',
         tracks: [
             {
-                name: '12222',
-                artist: '123',
+                name: 'Still Here (with the ones that I came with)',
+                artist: 'Skrillex, Porter Robinson & Bibi Bourelly',
                 url: 'music/skrill.mp3'
             },
             {

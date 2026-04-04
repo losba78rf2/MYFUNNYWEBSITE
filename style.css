@@ -12,11 +12,11 @@ body {
     background-repeat: repeat-x; */
     background-color: rgb(0, 0, 0);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    
+
 }
 
 #hall-of-achvs {
-    transition: opacity 0.2s ease-in, visibility 0s 0.2s; 
+    transition: opacity 0.2s ease-in, visibility 0s 0.2s;
     opacity: 0;
     visibility: hidden;
 }
@@ -33,16 +33,17 @@ body {
 }
 
 #bg-video {
-    position: fixed;   
+    position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100dvh; 
+    height: 100dvh;
     object-fit: cover;
- 
-    z-index: -1;      
-    pointer-events: none; 
+
+    z-index: -1;
+    pointer-events: none;
 }
+
 .vista-avatar {
     flex-shrink: 0;
     position: relative;
@@ -110,6 +111,47 @@ body {
     z-index: 9999;
     background: #00000031;
 }
+
+.marquee-container {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    margin-top: 15px;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+}
+
+.shop-item:hover {
+    filter: drop-shadow(0 0 40px rgba(90, 90, 90, 0.342));
+    overflow-y: visible;
+    transform: scale(1.001);
+    transition: all 0.1s ease;
+}
+
+.marquee-text {
+    display: inline-block;
+    padding-left: 100%;
+    text-shadow:
+        0 0 25px rgb(0, 255, 255),
+        0 0 10px rgb(255, 255, 255);
+    animation: marquee-scroll var(--duration, 15s) linear infinite;
+
+}
+
+@keyframes marquee-scroll {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(-90%, 0);
+    }
+
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
 
 @keyframes rippleEffect {
     0% {

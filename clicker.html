@@ -13,7 +13,7 @@
     <video autoplay muted loop playsinline id="bg-video">
         <source src="video/SKY_BG.webm" type="video/webm">
     </video>
-    
+
     <div class="background">
         <div class="window glass active" style="max-width: 900%;" id="MainWindowReal">
             <div class="title-bar">
@@ -95,7 +95,8 @@
                                 <p>So helpful!</p>
                                 <p>Thanks for seeking for help! You can close this window using this reeeed buttony</p>
                                 <p>ОЧЕНЬ СЕКРЕТНАЯ РАЗРАБОТКА ПЕНТАГОНА</p>
-                                <button id="open-hall-btn" onclick="closemod('helpel'); minimizeMain(true);">залесть</button>
+                                <button id="open-hall-btn"
+                                    onclick="closemod('helpel'); minimizeMain(true);">залесть</button>
                                 <button style="opacity: 0.1; position: absolute; top: 20px;"><a href="callington.html">.
                                         бро нет давай без этого</a></button>
 
@@ -192,13 +193,25 @@
                         background: url('PngsBackgrounds/FRUTPLAYER.png') no-repeat center; 
                         background-size: cover;
                         user-select: none;
+                        overflow-y: visible;
                         ">
                         <div
-                            style="position: absolute; top: 45px; left: 95px; width: 130px; height: 60px; overflow: hidden; color: #ffffff; font-family: sans-serif; font-size: 10px; text-align: center; pointer-events: none; font-family:monospace;">
-                            <div data-amplitude-song-info="name"
-                                style="font-weight: bold; font-size: 10px; margin-top: 15px; font-weight: 0;">Ничего не играет
+                            style="position: absolute; top: 45px; left: 95px; width: 130px; height: 60px;  color: #ffffff; font-family: sans-serif; font-size: 10px; text-align: center; pointer-events: none; font-family:monospace;">
+                            <div class="marquee-container">
+                                <div data-amplitude-song-info="name" class="marquee-text"
+                                    style="--duration: 18s; font-weight: bold; font-size: 14px; margin-top: 5px; font-weight: 0">
+                                    Ничего не играет, загрузи альбом!
+                                </div>
                             </div>
-                            <div data-amplitude-song-info="artist" style="opacity: 0.8; font-weight: 0; margin-top: 4px;">Выбери альбом!
+                            <div
+                                style="position: absolute; width: 130px; height: 60px;  color: #ffffff; font-family: sans-serif; font-size: 10px; text-align: center; pointer-events: none; font-family:monospace;">
+                                <div class="marquee-container">
+                                    <div data-amplitude-song-info="artist" class="marquee-text"
+                                        style="--duration: 10s; opacity: 0.8; font-weight: 0; margin-bottom: 10px;">
+                                        Выбери альбом!
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
                         <button class="amplitude-play-pause" title="Играть/Паузить"
@@ -228,7 +241,7 @@
 
     <div class="hall-of-achvs" id="hall-of-achvs"
         style="background-color: rgba(0, 0, 0, 0); display: flex; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 99999; align-items: center; justify-content: center; animation: fadeIn 0.5s ease; flex-direction: column; backdrop-filter: blur(5px); ">
-<!-- background: url('https://images.hdqwalls.com/download/windows-vista-aurora-greeny-in-1336x768.jpg') center/cover;  -->
+        <!-- background: url('https://images.hdqwalls.com/download/windows-vista-aurora-greeny-in-1336x768.jpg') center/cover;  -->
         <button id="close-ach-btn" class="shopperbutton" style="
                 position: absolute; 
                 top: 20px; 
@@ -292,8 +305,8 @@
         }
 
         function minimizeMain(tt) {
-            if (tt != null){
-                if (tt === true){
+            if (tt != null) {
+                if (tt === true) {
                     document.getElementById('MainWindowReal').style.marginTop = '80vh'
                     isMini = true
                 }
