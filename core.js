@@ -1,4 +1,6 @@
-import { upgrades, achvs, GAME_CONFIG } from './config.js';
+import { GAME_CONFIG } from './config.js';
+import { upgrades } from './upgrades.js';
+import { achvs } from './achievs.js';
 import { activateBuff, activeBuffs, updateIncome, buffs } from './buffs.js'
 import { albums as ALBUMS, updateAlbumSelect } from './music.js'
 loadAchievements()
@@ -9,6 +11,7 @@ const stats = document.getElementById("Stats")
 const shop_container = document.getElementById("shop-cont")
 const coll_conatiner = document.getElementById("coll-cont")
 const buff_cont = document.getElementById("BuffDiv")
+let volumeUs = Number(localStorage.getItem(`${GAME_CONFIG.saveKey}_SFXVolume`) || 0.2)
 const CategoryNames = {
     'all': 'Весь хлам',
     'base': 'Основные вещички',
@@ -22,7 +25,10 @@ const CategoryNames = {
 };
 
 
-
+document.getElementById("SFXVol").addEventListener("change", function () {
+    volumeUs = this.value / 100
+    localStorage.setItem(`${GAME_CONFIG.saveKey}_SFXVolume`, volumeUs);
+});
 
 // АУДИО ЖВЖА ДВИЖОКЧЕК
 const sounds = {
@@ -40,7 +46,7 @@ const sounds = {
 
 function playsound(SName) { //SoundName
     if (sounds[SName]) {
-        sounds[SName].volume = 0.5
+        sounds[SName].volume = volumeUs
         sounds[SName].currentTime = 0
         sounds[SName].play().catch(e => console.log("Браузер заблокировал звук до первого клика " + e));
     }
@@ -66,7 +72,7 @@ function checkAchievements() {
         }
 
         if (ach.type === 'level') {
-            if (SberBanks.level >= ach.goal){
+            if (SberBanks.level >= ach.goal) {
                 reached = true
             }
         }
@@ -600,7 +606,7 @@ function renderACHVS() {
             } else if (item.type === 'item' && targetItem) {
                 goal = "Получите " + item.goal + ' штук ' + targetItem.name
             } else if (item.type === 'level') {
-                goal = `Добейтесь ` + item.goal +` уровня!`
+                goal = `Добейтесь ` + item.goal + ` уровня!`
             }
         }
         achvs_shelf.innerHTML += `
@@ -609,10 +615,10 @@ function renderACHVS() {
                     <img src="${item.img}" class="user-img" style="width: 100px; height: 100px; border-radius: 5px;" alt="icon">
                     <img src="rDGyp.png" class="frame-overlay" style="width: 100px; height: 100px; position: absolute; left: 0; top: 0;" alt="frame">
                 </div> 
-                <h1 style="color: white; font-size: 18px; margin-top: 15px;">${nameShow}</h1>
-                <p style="color: rgba(255,255,255,0.7); font-size: 12px;">${descShow}</p>
+                <h1 style="color: white; font-size: 18px; margin-top: 15px; text-shadow: 0px 2px 12px #000000"; font-weight: 250;>${nameShow}</h1>
+                <p style="color: rgba(255,255,255,0.7); font-size: 12px; text-shadow: 0px 2px 12px #000000">${descShow}</p>
                 <small>
-                <p style="color: rgba(255,255,255,0.7); font-size: 12px;">${goal}</p>
+                <p style="color: rgba(255,255,255,0.7); font-size: 12px; text-shadow: 0px 2px 12px #000000">${goal}</p>
                 </small>
             </div>
         `;
@@ -636,13 +642,13 @@ function buyItem(id) {
         SberBanks.addXp(Math.floor(Math.log(item.price) * 10))
         item.price *= item.increment
         item.count++
-        if (item.category === 'music' && item.album_id){
+        if (item.category === 'music' && item.album_id) {
             updateAlbumSelect()
             console.log("yeseyesyes")
         }
         recalcTI()
         playsound('buy')
-        
+
         renderShop()
         recalcPowerBonus()
         checkAchievements()
@@ -740,13 +746,22 @@ window.onload = function () {
 };
 
 
+let openerd = true;
 
-function SetDispToHall(disptype) {
-    const hall = document.getElementById("hall-of-achvs")
-    if (hall) {
-        hall.style.display = disptype
+function SetDispToHall() {
+    const hall = document.getElementById("hall-of-achvs");
+    if (!hall) return;
+
+    if (openerd) {
+        hall.classList.add("show"); // Запускает анимацию появления
+        openerd = false;
+    } else {
+        hall.classList.remove("show"); // Запускает анимацию исчезновения
+        openerd = true;
+        minimizeMain()
     }
 }
+
 
 document.getElementById('ClickButton').addEventListener('mousedown', (e) => {
     const ripple = document.createElement('div');
@@ -909,7 +924,7 @@ function loadAchievements() {
 
 // Основная инициализация при загрузке страницы
 document.addEventListener('DOMContentLoaded', () => {
-    
+
     // 1. ИНИЦИАЛИЗАЦИЯ ТАБОВ (по канону 7.css)
     const tabList = document.querySelector("[aria-label='Shop Tabs']");
     if (tabList) {
@@ -964,24 +979,25 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('Wcall')) {
         document.getElementById('Wcall').addEventListener('click', (e) => callW(e));
     }
-    // 4. АЧИВКИ ЗАКРЫТЬ
-    const closebtn = document.getElementById('close-ach-btn')
-    if (closebtn) {
-        closebtn.addEventListener('click', (e) => {
-            playsound('ach')
-            SetDispToHall('none', e)
-        })
-    }
 
-    // 5. АЧИВКИ ОТКРЫТЬ
+    // 4. АЧИВКИ ОТКРЫТЬ
     const open_hallbtn = document.getElementById('open-hall-btn')
     if (open_hallbtn) {
 
         open_hallbtn.addEventListener('click', (e) => {
-            playsound('shimmer')
-            SetDispToHall('flex', e)
+            // playsound('shimmer')
+            SetDispToHall(e)
         })
     }
+    // 5. АЧИВКИ ЗАКРЫТЬ
+    const closebtn = document.getElementById('close-ach-btn')
+    if (closebtn) {
+        closebtn.addEventListener('click', (e) => {
+            // playsound('ach')
+            SetDispToHall(e)
+        })
+    }
+
     // 3. МАГАЗИН (Делегирование кликов)
     const shopContainer = document.querySelector('.shop');
     if (shopContainer) {

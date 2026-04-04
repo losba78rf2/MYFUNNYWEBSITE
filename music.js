@@ -1,4 +1,4 @@
-import { upgrades } from "./config.js";
+import { upgrades } from "./upgrades.js";
 
 export const albums = {
     pack1: {
@@ -6,6 +6,11 @@ export const albums = {
         desc: 'ye',
         img: 'img/cover.jpg',
         tracks: [
+            {
+                name: 'aquatic ambience',
+                artist: 'Scizzie',
+                url: 'music/MPack1/aquaamb.mp3'
+            },
             {
                 name: 'June 2011 (3DS)',
                 artist: 'Nintendo',

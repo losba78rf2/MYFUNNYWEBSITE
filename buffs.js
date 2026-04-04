@@ -1,4 +1,5 @@
-import { GAME_CONFIG, upgrades } from "./config.js"
+import { GAME_CONFIG } from "./config.js"
+import { upgrades } from "./upgrades.js"
 
 export const activeBuffs = {
 
