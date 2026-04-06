@@ -500,7 +500,6 @@ function renderBuffs() {
     }
 }
 function checkWindaActivat() {
-    // Проверяем, есть ли хоть одна лицензия в инвентаре
     const hasVista = upgrades.WVL && upgrades.WVL.count > 0;
     const hasWin7 = upgrades.W7L && upgrades.W7L.count > 0;
     const isActivated = hasVista || hasWin7;
@@ -508,28 +507,21 @@ function checkWindaActivat() {
     const watermark = document.getElementById('genuine-watermark');
 
     if (isActivated) {
-        // Если лицензия есть — чистим всё
         document.body.classList.remove('not-genuine');
         if (watermark) watermark.remove();
         GAME_CONFIG.incomeMultiplier = 1.0;
 
-        // Бонус: если активировали, можно вернуть обои по умолчанию
-        // document.body.style.backgroundImage = "url('ваши_обои.jpg')";
     } else {
-        // Если лицензии нет — запускаем пиратский режим
-        // Проверка !watermark нужна, чтобы не плодить надписи при каждом рендере
         if (!watermark) {
             triggerPirateEvent();
         }
     }
 }
 
-// 2. ИНИЦИАЛИЗАЦИЯ КАТЕГОРИЙ (только наполнение селекта)
 function initCategoriesInInverntory() {
     const select = document.getElementById("category-select");
     if (!select) return;
 
-    // Сохраняем текущий выбор, чтобы он не слетал при обновлении
     const currentValue = select.value || 'all';
 
     const categories = new Set();
@@ -537,12 +529,10 @@ function initCategoriesInInverntory() {
         categories.add(upgrades[id].category || upgrades[id].type);
     }
 
-    // Всегда добавляем категорию 'sale', даже если в upgrades её пока нет (для будущего)
     categories.add('sale');
 
-    select.innerHTML = ''; // Чистим старое
+    select.innerHTML = ''; 
 
-    // Проходимся по словарю, чтобы порядок всегда был одинаковый
     for (let code in CategoryNames) {
         if (code === 'all' || categories.has(code)) {
             const option = document.createElement('option');
@@ -552,11 +542,10 @@ function initCategoriesInInverntory() {
         }
     }
 
-    select.value = currentValue; // Возвращаем выбор на место
+    select.value = currentValue; 
     select.onchange = () => renderShop();
 }
 
-// 3. ИНИЦИАЛИЗАЦИЯ ТАБОВ (вызывается ОДИН РАЗ при старте игры)
 function initTabs() {
     const tabs = document.querySelectorAll('menu[role="tablist"] button');
 
@@ -564,7 +553,6 @@ function initTabs() {
         btn.addEventListener('click', () => {
             const targetPaneId = btn.getAttribute('aria-controls');
 
-            // Просто перерисовываем всё с ТЕКУЩИМ фильтром, который стоит в селекте
             renderShop();
 
             console.log(`Перешли в ${targetPaneId}, фильтр остался: ${document.getElementById("category-select")?.value}`);
@@ -682,15 +670,13 @@ document.querySelectorAll('.shopperbutton').forEach(button => {
 
 function showAchievement(ach) {
     const toast = document.createElement('div');
-    // Используем стандартные классы 7.css для окна
     toast.className = "window glass active";
     toast.style.position = "fixed";
     toast.style.top = "20px";
-    toast.style.right = "-350px"; // Прячем за край
+    toast.style.right = "-350px"; 
     toast.style.width = "250px";
     toast.style.transition = "all 1.2s cubic-bezier(0.075, 0.82, 0.165, 1)";
     toast.style.zIndex = "10000";
-    // System Notification
     toast.innerHTML = `
     <div class="title-bar">
         <div class="title-bar-text">ЧЕРТ ВОЗЬМИ ЧУУЕЕЕЕ</div>
@@ -753,10 +739,10 @@ function SetDispToHall() {
     if (!hall) return;
 
     if (openerd) {
-        hall.classList.add("show"); // Запускает анимацию появления
+        hall.classList.add("show"); 
         openerd = false;
     } else {
-        hall.classList.remove("show"); // Запускает анимацию исчезновения
+        hall.classList.remove("show"); 
         openerd = true;
         minimizeMain()
     }
@@ -804,10 +790,10 @@ function StartRandTime() {
 }
 
 function triggerPirateEvent() {
-    // 1. Меняем фон на чёрный
+
     document.body.classList.add('not-genuine');
 
-    // 2. Спавним ту самую надпись
+
     const watermark = document.createElement('div');
     watermark.id = 'genuine-watermark';
     watermark.innerHTML = `
@@ -816,10 +802,10 @@ function triggerPirateEvent() {
     `;
     document.body.appendChild(watermark);
 
-    // 3. Дебафф: режем доход в 2 раза
+
     GAME_CONFIG.incomeMultiplier = 0.5;
 
-    // 4. Озвучка ошибки винды
+
     if (typeof playsound === 'function') playsound('error');
 }
 
@@ -860,7 +846,6 @@ document.addEventListener('keydown', (e) => {
         }, 300000);
         sequence = "";
     }
-    // Очищаем строку, чтобы не копилась бесконечно
     if (sequence.length > 20) sequence = "";
 });
 
