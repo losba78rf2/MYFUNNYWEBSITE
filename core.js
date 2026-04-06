@@ -486,7 +486,7 @@ function renderShop() {
     <div style="margin-bottom: 100px;"></div>
     `
     coll_conatiner.innerHTML += `
-    <div style="margin-bottom: 100px;"></div>
+    <div style="margin-bottom: 1000px;"></div>
     `
     console.log("%cАЛЁ! ТЫ ЗАЧЕМ СЮДА ЗАЛЕЗ?! ХОЧЕШЬ FAC НАКРУТИТЬ? Я ВСЁ ВИЖУ! \nGET OUT! GET THE FUCK OUT!!!! haha!", "color: red; font-size: 20px; background: yellow;");
 }
